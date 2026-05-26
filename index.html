@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>小學二年級幾何圖形製作教材</title>
+  <title>小學二年級幾何圖形製作教材 - 完整豪華修復版</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons for nice UI -->
@@ -36,14 +36,14 @@
   <header class="bg-amber-400 text-amber-950 py-4 px-6 shadow-md flex justify-between items-center">
     <div class="flex items-center space-x-3">
       <i data-lucide="shapes" class="w-8 h-8"></i>
-      <h1 class="text-xl md:text-2xl font-bold">二年級幾何圖形探索趣（精準除錯版）</h1>
+      <h1 class="text-xl md:text-2xl font-bold">二年級幾何圖形探索趣 (完整豪華修復版)</h1>
     </div>
     <div id="mode-badge" class="bg-white/80 px-4 py-1.5 rounded-full text-sm font-bold shadow-sm">
       請先選擇模式
     </div>
   </header>
 
-  <!-- 主畫面：登入與模式選擇 -->
+  <!-- 主畫面 -->
   <main id="app" class="max-w-4xl mx-auto p-4 md:p-6">
     
     <!-- 1. 模式選擇與密碼輸入畫面 -->
@@ -71,17 +71,17 @@
           <div class="bg-rose-100 p-4 rounded-full text-rose-600 inline-block mb-4">
             <i data-lucide="trophy" class="w-16 h-16"></i>
           </div>
-          <h2 class="text-2xl font-bold text-rose-800 mb-2">密碼解鎖</h2>
+          <h2 class="text-2xl font-bold text-rose-800 mb-2">密碼解鎖挑戰</h2>
           <p class="text-slate-600 mb-6 text-base">
             直接挑戰高精度的正方形！<br>
-            輸入開關密碼即可提前解鎖喔。
+            輸入解鎖密碼即可提前進入喔。
           </p>
           
           <!-- 密碼輸入區 -->
           <div class="mb-4 text-left">
-            <label class="block text-sm font-semibold text-slate-500 mb-1">請輸入解鎖密碼 (2)：</label>
+            <label class="block text-sm font-semibold text-slate-500 mb-1">請輸入挑戰密碼：</label>
             <div class="relative">
-              <input type="password" id="challenge-password" placeholder="請輸入密碼" class="w-full px-4 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-rose-400">
+              <input type="password" id="challenge-password" placeholder="請輸入密碼或 tktcps" class="w-full px-4 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-rose-400">
               <p id="password-error" class="text-rose-500 text-sm mt-1 hidden">密碼錯誤，請再試一次！</p>
             </div>
           </div>
@@ -92,25 +92,25 @@
       </div>
     </section>
 
-    <!-- 2. 關卡選擇區 -->
+    <!-- 2. 關卡選擇區 (二格配置) -->
     <section id="shape-selection-screen" class="hidden text-center my-8">
       <h2 class="text-3xl font-extrabold text-amber-900 mb-8">你想進行哪種幾何練習？</h2>
-      <div class="flex flex-col md:flex-row justify-center gap-8 max-w-4xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
         <!-- 正方形教學題 -->
-        <button id="btn-square-select" onclick="selectShape('square')" class="flex-1 bg-white hover:bg-amber-50 border-4 border-amber-400 rounded-3xl p-8 shadow-md transition transform hover:-translate-y-1 flex flex-col items-center">
-          <div class="w-24 h-24 border-4 border-amber-500 bg-amber-100 rounded-lg mb-4"></div>
-          <span class="text-2xl font-bold text-amber-800">正方形教學題</span>
-          <p class="text-slate-500 text-sm mt-2">提供等長的垂直邊繪製概念。<br>(共4題，需密碼解鎖)</p>
+        <button id="btn-square-select" onclick="selectShape('square')" class="bg-white hover:bg-amber-50 border-4 border-amber-400 rounded-3xl p-6 shadow-md transition transform hover:-translate-y-1 flex flex-col items-center">
+          <div class="w-20 h-20 border-4 border-amber-500 bg-amber-100 rounded-lg mb-4"></div>
+          <span class="text-xl font-bold text-amber-800">正方形教學題</span>
+          <p class="text-slate-500 text-sm mt-2">提供等長的垂直邊。<br>(共3題，有彩色輔助線引導)</p>
         </button>
         <!-- 正方形挑戰題 -->
-        <button id="btn-challenge-select" onclick="selectShape('square_challenge')" class="flex-1 bg-white border-4 border-slate-200 rounded-3xl p-8 shadow-md flex flex-col items-center relative opacity-50 cursor-not-allowed">
+        <button id="btn-challenge-select" onclick="selectShape('square_challenge')" class="bg-white border-4 border-slate-200 rounded-3xl p-8 shadow-md flex flex-col items-center relative opacity-50 cursor-not-allowed">
           <div id="challenge-lock-badge" class="absolute -top-4 right-4 bg-slate-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center space-x-1">
             <i data-lucide="lock" class="w-3.5 h-3.5"></i>
             <span>完成教學題後解碼</span>
           </div>
           <div class="w-24 h-24 border-4 border-rose-500 bg-rose-100 rounded-lg mb-4 mt-4"></div>
-          <span class="text-2xl font-bold text-rose-800">正方形挑戰區</span>
-          <p class="text-slate-500 text-sm mt-2">獨立找出頂點！<br>(連續三題通關，需密碼解鎖)</p>
+          <span class="text-2xl font-bold text-rose-800">正方形挑戰題</span>
+          <p class="text-slate-500 text-sm mt-2">獨立找出頂點！<br>(自由產生題目，連續兩題通關)</p>
         </button>
       </div>
       <button onclick="backToMenu()" class="mt-8 inline-flex items-center space-x-2 text-slate-600 hover:text-slate-900 font-semibold">
@@ -119,7 +119,7 @@
       </button>
     </section>
 
-    <!-- 3. 遊戲主畫面 (單一整合面板) -->
+    <!-- 3. 遊戲主畫面 -->
     <section id="game-screen" class="hidden my-4">
       <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl border-4 border-amber-300 flex flex-col items-center">
         
@@ -127,111 +127,139 @@
         <div class="w-full flex flex-col md:flex-row justify-between items-center border-b-2 border-slate-100 pb-4 mb-6 gap-2">
           <div class="flex items-center space-x-3">
             <span id="shape-badge" class="bg-amber-100 text-amber-800 font-bold px-4 py-1.5 rounded-full text-lg shadow-sm">正方形教學題</span>
-            <h3 id="stage-title" class="text-2xl md:text-3xl font-extrabold text-slate-800">第 1 關 - 第 1 題 / 共 4 題</h3>
+            <h3 id="stage-title" class="text-2xl md:text-3xl font-extrabold text-slate-800">第 1 關 - 第 1 題 / 共 3 題</h3>
           </div>
           <div class="flex flex-col items-end md:items-end text-right">
             <div id="feedback-toast" class="text-xl font-extrabold text-indigo-600">
-              第一步: 製作一條與黑線(邊)互相垂直的邊
+              第一步: 製作一條與黑線(邊)長度相同及互相垂直的邊
             </div>
             <p id="stage-instruction" class="text-slate-500 text-sm font-semibold mt-1">
-              請尋找直角
+              第一步: 製作一條與黑線(邊)長度相同及互相垂直的邊
             </p>
           </div>
         </div>
 
-        <!-- SVG 畫布區域 (放大至 700px) -->
-        <div id="canvas-container" class="w-full max-w-[700px] aspect-square rounded-2xl border-4 border-slate-300 overflow-hidden shadow-inner relative touch-none select-none">
-          <svg id="geo-svg" class="w-full h-full" viewBox="0 0 500 500">
-            <defs>
-              <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
-                <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#e0f2fe" stroke-width="1.2"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-            <g id="grid-points"></g>
-            <polygon id="completed-polygon" points="" fill="none" class="transition-all duration-500" />
-            <!-- 持續保留顯示的輔助框紀錄 -->
-            <g id="persistent-helper-rects"></g>
-            <g id="fixed-lines"></g>
-            <g id="helper-rects"></g>
-            <!-- 挑戰模式專用群組 -->
-            <g id="challenge-lines"></g>
-            <!-- 挑戰模式: 錯誤時用來預覽的虛線 -->
-            <g id="error-temp-lines"></g>
-            <circle id="ch-selected-pt" cx="0" cy="0" r="8" class="hidden pointer-events-none" />
-            <g id="custom-boxes-group"></g>
-            <!-- 教學模式互動點 -->
-            <g id="interactive-group" class="cursor-pointer"></g>
-            <g id="control-points"></g>
-          </svg>
-        </div>
-
-        <!-- 下方工具控制列 (教學模式) -->
-        <div id="learning-tools" class="w-full max-w-[700px] mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 hidden">
-          <div class="flex space-x-6 text-sm font-bold text-slate-500">
-            <div class="flex items-center space-x-1.5">
-              <span class="w-3.5 h-3.5 bg-orange-500 rounded-full inline-block"></span>
-              <span>固定起點</span>
-            </div>
-            <div class="flex items-center space-x-1.5">
-              <span id="legend-color-dot" class="w-3.5 h-3.5 bg-emerald-500 rounded-full inline-block"></span>
-              <span>動態操作線</span>
+        <!-- 響應式佈局：在寬螢幕上左右分欄 (md級以上即並排) -->
+        <div class="w-full flex flex-col md:flex-row items-center md:items-start justify-center gap-8">
+          
+          <!-- 左側：SVG 畫布區域 (14x14 格，最大寬度設為 385px 保持格子物理大小不變！) -->
+          <div class="flex flex-col items-center">
+            <div id="canvas-container" class="w-[385px] max-w-[385px] aspect-square rounded-2xl border-4 border-slate-300 overflow-hidden shadow-inner relative touch-none select-none">
+              <svg id="geo-svg" class="w-full h-full" viewBox="0 0 350 350">
+                <defs>
+                  <pattern id="grid" width="25" height="25" patternUnits="userSpaceOnUse">
+                    <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#e0f2fe" stroke-width="1.2"/>
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+                <polygon id="completed-polygon" points="" fill="none" class="transition-all duration-500" />
+                
+                <!-- 最底層格點事件圖層 -->
+                <g id="grid-points"></g>
+                <g id="persistent-helper-rects"></g>
+                <g id="fixed-lines"></g>
+                <g id="helper-rects"></g>
+                <g id="challenge-lines"></g>
+                <g id="error-temp-lines"></g>
+                
+                <circle id="ch-selected-pt" cx="0" cy="0" r="8" class="hidden pointer-events-none" />
+                <g id="custom-boxes-group"></g>
+                <!-- 控制點與互動層移至最上層，絕對不被覆蓋 -->
+                <g id="interactive-group" class="cursor-pointer"></g>
+                <g id="control-points"></g>
+              </svg>
             </div>
           </div>
-          <div class="flex space-x-4 w-full sm:w-auto">
-            <button onclick="undoStep()" class="flex-1 sm:flex-initial bg-amber-100 hover:bg-amber-200 text-amber-800 border-2 border-amber-300 font-bold py-3 px-6 rounded-2xl text-lg transition flex items-center justify-center space-x-2 shadow-sm">
-              <i data-lucide="undo-2" class="w-5 h-5"></i>
-              <span>上一步</span>
-            </button>
-            <button onclick="resetCurrentStage()" class="flex-1 sm:flex-initial bg-white hover:bg-emerald-50 text-emerald-600 border-4 border-emerald-300 font-bold py-2.5 px-6 rounded-2xl text-lg transition flex items-center justify-center space-x-2 shadow-sm">
-              <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
-              <span>重新此關</span>
-            </button>
-          </div>
-        </div>
 
-        <!-- 下方工具控制列 (挑戰模式專用) -->
-        <div id="challenge-tools" class="w-full max-w-[700px] mt-6 bg-slate-50 border-4 border-rose-200 rounded-2xl p-4 flex flex-col gap-4 hidden shadow-sm">
-           <div class="flex justify-between items-center font-bold text-rose-700">
-              <span id="challenge-level-text" class="text-xl bg-rose-100 px-3 py-1 rounded-lg">第一關：加畫兩邊</span>
-              <div class="flex items-center gap-2">
-                <i data-lucide="flame" class="w-5 h-5 text-orange-500"></i>
-                <span id="challenge-streak-text" class="text-lg">無提示連勝: 0 / 3</span>
+          <!-- 右側：控制面板與工具列 -->
+          <div class="w-full md:max-w-[320px] flex flex-col justify-start gap-4">
+            
+            <!-- 下方工具控制列 (教學模式) -->
+            <div id="learning-tools" class="w-full flex flex-col gap-4 hidden">
+              <div class="bg-slate-50 border-2 border-slate-200 rounded-2xl p-4 flex flex-col gap-3">
+                <span class="font-bold text-slate-700 block text-center border-b pb-2">操作指引</span>
+                <div class="flex items-center space-x-2 text-sm font-semibold text-slate-600">
+                  <span class="w-3.5 h-3.5 bg-orange-500 rounded-full inline-block"></span>
+                  <span>橘色點：點擊以固定起點</span>
+                </div>
+                <div class="flex items-center space-x-2 text-sm font-semibold text-slate-600">
+                  <span id="legend-color-dot" class="w-3.5 h-3.5 bg-emerald-500 rounded-full inline-block"></span>
+                  <span>彩色線：任意拖曳進行旋轉</span>
+                </div>
               </div>
-           </div>
-           
-           <div class="flex flex-col sm:flex-row justify-between items-center gap-4 border-t-2 border-rose-100 pt-4">
-             <div class="flex flex-wrap gap-2 items-center bg-white p-2 rounded-xl border-2 border-slate-200 shadow-sm">
-                <span class="text-sm font-bold text-slate-600">自製輔助框:</span>
-                <input type="number" id="custom-box-w" min="1" max="15" placeholder="寬" class="w-16 px-2 py-1 text-center font-bold border rounded-lg outline-none focus:border-indigo-400">
-                <span class="text-slate-500 font-bold">×</span>
-                <input type="number" id="custom-box-h" min="1" max="15" placeholder="高" class="w-16 px-2 py-1 text-center font-bold border rounded-lg outline-none focus:border-indigo-400">
-                <span class="text-sm font-bold text-slate-600">格</span>
-                <button onclick="createCustomBox()" class="bg-indigo-500 text-white px-4 py-1.5 rounded-lg font-bold hover:bg-indigo-600 shadow-sm transition">產生</button>
-             </div>
-             
-             <div class="flex gap-3">
-                <button onclick="useChallengeHint()" class="bg-amber-100 text-amber-800 border-2 border-amber-300 px-5 py-2.5 rounded-xl font-bold hover:bg-amber-200 shadow-sm transition flex items-center gap-1">
-                  <i data-lucide="lightbulb" class="w-5 h-5"></i> 小提示
+              <div class="flex flex-col gap-2 w-full">
+                <!-- 手動跳轉下一題按鈕 -->
+                <button id="btn-next-question" onclick="handleNextQuestionClick()" class="hidden w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-2xl text-lg shadow-md transition flex items-center justify-center space-x-2 transform hover:scale-105">
+                  <span>下一題</span>
+                  <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </button>
-                <button onclick="checkChallengeConnect()" class="bg-rose-500 text-white px-8 py-2.5 rounded-xl font-bold text-lg hover:bg-rose-600 shadow-md transition flex items-center gap-1 transform hover:scale-105">
-                  <i data-lucide="check" class="w-5 h-5"></i> 連起來！
+                <button id="btn-undo" onclick="undoStep()" class="w-full bg-amber-100 hover:bg-amber-200 text-amber-800 border-2 border-amber-300 font-bold py-3 px-6 rounded-2xl text-lg transition flex items-center justify-center space-x-2 shadow-sm">
+                  <i data-lucide="undo-2" class="w-5 h-5"></i>
+                  <span>上一步</span>
                 </button>
-             </div>
-           </div>
+                <button id="btn-reset-stage" onclick="resetCurrentStage()" class="w-full bg-white hover:bg-emerald-50 text-emerald-600 border-4 border-emerald-300 font-bold py-2.5 px-6 rounded-2xl text-lg transition flex items-center justify-center space-x-2 shadow-sm">
+                  <i data-lucide="rotate-ccw" class="w-5 h-5"></i>
+                  <span>重新此關</span>
+                </button>
+                <button onclick="backToShapeSelection()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-2xl text-base transition flex items-center justify-center space-x-2 shadow-sm">
+                  <i data-lucide="home" class="w-5 h-5"></i>
+                  <span>返回選單</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 下方工具控制列 (挑戰模式專用) -->
+            <div id="challenge-tools" class="w-full bg-slate-50 border-4 border-rose-200 rounded-2xl p-4 flex flex-col gap-4 hidden shadow-sm">
+               <div class="flex flex-col gap-2 font-bold text-rose-700 border-b pb-2">
+                  <span id="challenge-level-text" class="text-xl bg-rose-100 px-3 py-1.5 rounded-xl text-center">第一關：加畫兩邊</span>
+                  <div class="flex items-center justify-center gap-1.5 mt-1">
+                    <i data-lucide="flame" class="w-5 h-5 text-orange-500"></i>
+                    <span id="challenge-streak-text" class="text-base text-orange-600">無提示答對: 0 / 3 題</span>
+                  </div>
+               </div>
+               
+               <div class="flex flex-col gap-3">
+                 <div class="flex flex-col gap-2 p-3 bg-white rounded-xl border-2 border-slate-200 shadow-sm">
+                    <span class="text-sm font-bold text-slate-600 block text-center">自製魔法屋(輔助框)</span>
+                    <div class="flex items-center justify-center gap-2">
+                      <span class="text-sm font-bold text-slate-600">打橫</span>
+                      <input type="number" id="custom-box-w" min="1" max="15" class="w-16 px-2 py-1.5 text-center font-bold border rounded-lg outline-none focus:border-indigo-400">
+                      <span class="text-sm font-bold text-slate-600">格，打直</span>
+                      <input type="number" id="custom-box-h" min="1" max="15" class="w-16 px-2 py-1.5 text-center font-bold border rounded-lg outline-none focus:border-indigo-400">
+                      <span class="text-sm font-bold text-slate-600">格</span>
+                    </div>
+                    <button onclick="createCustomBox()" class="w-full bg-indigo-500 text-white py-2 rounded-lg font-bold hover:bg-indigo-600 shadow-sm transition text-sm">魔法, 變!變!變!</button>
+                 </div>
+                 
+                 <div class="flex flex-col gap-2 w-full">
+                    <button onclick="useChallengeHint()" class="w-full bg-amber-100 text-amber-800 border-2 border-amber-300 py-3 rounded-xl font-bold hover:bg-amber-200 shadow-sm transition flex items-center justify-center gap-1">
+                      <i data-lucide="lightbulb" class="w-5 h-5"></i> 小提示
+                    </button>
+                    <button onclick="checkChallengeConnect()" class="w-full bg-rose-500 text-white py-3.5 rounded-xl font-bold text-lg hover:bg-rose-600 shadow-md transition flex items-center justify-center gap-1 transform hover:scale-105">
+                      <i data-lucide="check" class="w-5 h-5"></i> 連起來！
+                    </button>
+                    <button onclick="backToShapeSelection()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-2.5 rounded-xl font-semibold transition text-sm">
+                      返回選單
+                    </button>
+                 </div>
+               </div>
+            </div>
+
+          </div>
+
         </div>
 
       </div>
     </section>
 
-    <!-- 開關密碼 Modal (全新加入) -->
+    <!-- 開關密碼 Modal -->
     <div id="stage-password-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
       <div class="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl border-4 border-amber-400 text-center transform transition-all scale-100">
         <div class="bg-amber-100 p-4 rounded-full text-amber-600 inline-block mb-4">
           <i data-lucide="lock" class="w-12 h-12 mx-auto"></i>
         </div>
         <h3 class="text-2xl font-bold text-amber-900 mb-4">需要輸入開關密碼</h3>
-        <p class="text-slate-600 font-semibold mb-4 text-sm">請輸入正確的數字密碼以繼續：</p>
+        <p class="text-slate-600 font-semibold mb-4 text-sm">請輸入正確的數字密碼以解鎖：</p>
         <div class="mb-4">
           <input type="password" id="stage-pwd-input" placeholder="密碼" class="w-full px-4 py-2 border-2 border-slate-200 rounded-xl focus:outline-none focus:border-amber-400 text-center text-xl tracking-widest">
           <p id="stage-pwd-error" class="text-rose-500 text-sm mt-2 hidden">密碼錯誤，請再試一次！</p>
@@ -274,7 +302,6 @@
 
   </main>
 
-  <!-- 頁尾 -->
   <footer class="text-center py-8 text-slate-400 text-xs">
     © 2026 幾何圖形製作學習平台 - 提供最直覺的視覺引導教學
   </footer>
@@ -287,7 +314,6 @@
     let selectedShape = ''; 
     let isChallengeUnlocked = false; 
 
-    // --- 教學模式變數 ---
     let currentDifficulty = 1; 
     let currentStage = 1; 
     let isDrawingStageStarted = false; 
@@ -298,19 +324,17 @@
     let orangePoints = []; 
     let stageSessionId = 0; 
 
-    // --- 密碼鎖變數 ---
     let requiredPassword = '';
     let pendingCallback = null;
 
-    // --- 挑戰模式變數 ---
     let chLevel = 1; 
-    let chStreak = 0;
+    let chStreak = 0; // 記錄無提示累積答對題數
     let chHintUsed = false;
     let chHints = [
-      "留意邊長是否相同。",
-      "留意是否能與相鄰的邊形成完美的直角 (90度)。",
-      "如果直接看不好判斷，可以利用下方的「自製輔助框」來測量距離喔！",
-      "可以觀察黑線輔助框的長寬比例，想一下直角邊的輔助框該怎麼放？"
+      "觀察一下黑線的輔助虛線框，打橫佔了幾格？打直佔了幾格？",
+      "如果黑線的輔助框是「打橫 A 格，打直 B 格」，那與它垂直的邊，輔助框一定是反過來的「打橫 B 格，打直 A 格」喔！",
+      "想確定長度或直角對不對？可以在下方輸入「打橫」跟「打直」的格數，產生一個自己的魔法屋拖過去對齊看看！",
+      "正方形的四個角一定要是完美的直角 (90度)！不能只是長度對而已喔。"
     ];
     let chHintIndex = 0;
     let chExpected = []; 
@@ -318,27 +342,51 @@
     let chSelectedPt = null; 
     let chCurrentColor = "";
     
-    // --- 拖曳事件狀態 ---
+    let currentChallengeSquare = null; 
+    let challengeRetryMode = false;
+
     let globalOnMove = null;
     let globalEndDrag = null;
     let isDraggingBox = null;
     let boxDragOffset = {x: 0, y: 0};
 
     // ==========================================
-    // 2. 輔助核心函式
+    // 2. 幾何基礎座標轉換與測量公用函式
     // ==========================================
+    function grid(gridX, gridY) {
+      return { x: gridX * 25, y: 350 - (gridY * 25) };
+    }
+
     function getDistance(p1, p2) {
       return Math.sqrt((p2.x - p1.x)**2 + (p2.y - p1.y)**2);
+    }
+
+    function getDistanceSq(p1, p2) {
+      return (p1.x - p2.x)**2 + (p1.y - p2.y)**2;
+    }
+
+    function getOpenEnds() {
+      let counts = {};
+      let edges = {};
+      currentFixedLines.forEach((line) => {
+        let p1Key = `${Math.round(line.p1.x)},${Math.round(line.p1.y)}`;
+        let p2Key = `${Math.round(line.p2.x)},${Math.round(line.p2.y)}`;
+        if (!counts[p1Key]) { counts[p1Key] = 0; edges[p1Key] = { point: line.p1, connectedTo: [] }; }
+        if (!counts[p2Key]) { counts[p2Key] = 0; edges[p2Key] = { point: line.p2, connectedTo: [] }; }
+        counts[p1Key]++; counts[p2Key]++;
+        edges[p1Key].connectedTo.push(line.p2); edges[p2Key].connectedTo.push(line.p1);
+      });
+      let openEnds = [];
+      for (let key in counts) {
+        if (counts[key] === 1) openEnds.push({ point: edges[key].point, pivotPoint: edges[key].connectedTo[0] });
+      }
+      return openEnds;
     }
 
     function getAngle(p1, p2) {
       let angle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
       if (angle < 0) angle += 360;
       return angle;
-    }
-
-    function grid(gridX, gridY) {
-      return { x: gridX * 25, y: 500 - (gridY * 25) };
     }
 
     function matchPoint(pA, pB) {
@@ -350,15 +398,68 @@
       if (fbToast) fbToast.innerText = text;
     }
 
+    function showHintPopup(title, message) {
+      const titleEl = document.getElementById('hint-modal-title');
+      const textEl = document.getElementById('hint-modal-text');
+      const modal = document.getElementById('hint-modal');
+      
+      if (titleEl) titleEl.innerText = title;
+      if (textEl) textEl.innerText = message;
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    const crColors = ['#e11d48', '#9333ea', '#2563eb', '#0891b2', '#059669', '#65a30d', '#ca8a04', '#ea580c', '#dc2626', '#4f46e5', '#0ea5e9'];
+    function getRandomPaletteColor() {
+      return crColors[Math.floor(Math.random() * crColors.length)];
+    }
+
+    function getPolygonVertices() {
+      const config = DIFFICULTY_SETTINGS[selectedShape][currentDifficulty];
+      const pts = config.points;
+      const p4 = {
+        x: pts.p2.x + pts.p3.x - pts.p1.x,
+        y: pts.p2.y + pts.p3.y - pts.p1.y
+      };
+
+      const vertices = [pts.p1, pts.p2, p4, pts.p3];
+      const cx = vertices.reduce((sum, p) => sum + p.x, 0) / 4;
+      const cy = vertices.reduce((sum, p) => sum + p.y, 0) / 4;
+
+      return vertices.sort((a, b) => {
+        const angleA = Math.atan2(a.y - cy, a.x - cx);
+        const angleB = Math.atan2(b.y - cy, b.x - cx);
+        return angleA - angleB;
+      });
+    }
+
+    function addPersistentHelper(p1, p2, colorSet) {
+      const group = document.getElementById('persistent-helper-rects');
+      if (!group) return;
+      const pt2 = { x: p2.x, y: p1.y }; const pt3 = p2; const pt4 = { x: p1.x, y: p2.y };
+      const rect = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+      rect.setAttribute("points", `${p1.x},${p1.y} ${pt2.x},${pt2.y} ${pt3.x},${pt3.y} ${pt4.x},${pt4.y}`);
+      rect.setAttribute("stroke-dasharray", "4,4"); 
+      if (colorSet) {
+         rect.setAttribute("stroke", colorSet.outline);
+         rect.setAttribute("stroke-width", "2.5");
+         rect.setAttribute("fill", colorSet.fill);
+         rect.setAttribute("opacity", "0.8");
+      } else {
+         rect.setAttribute("stroke", "#f97316");
+         rect.setAttribute("stroke-width", "2");
+         rect.setAttribute("fill", "rgba(249, 115, 22, 0.05)");
+      }
+      group.appendChild(rect);
+    }
+
     // ========================================================
-    // 3. 關卡與坐標設定 (擴充為4題，提供不同大小與反方向)
+    // 3. 幾何教材關卡資料
     // ========================================================
     const DIFFICULTY_SETTINGS = {
       square: {
-        1: { points: { p1: grid(10, 5), p2: grid(14, 9), p3: grid(6, 9) } }, // 第一關-Q1 (4x4 往上)
-        2: { points: { p1: grid(10, 5), p2: grid(13, 9), p3: grid(6, 8) } }, // 第一關-Q2 (3x4 往上)
-        3: { points: { p1: grid(11, 8), p2: grid(7, 11), p3: grid(14, 12) } },// 第二關-Q3 (4x3 往右上方傾斜)
-        4: { points: { p1: grid(8, 10), p2: grid(13, 8), p3: grid(6, 5) } }  // 第二關-Q4 (5x2 往右下方傾斜)
+        1: { points: { p1: grid(7, 3), p2: grid(11, 7), p3: grid(3, 7) } },
+        2: { points: { p1: grid(9, 8), p2: grid(13, 5), p3: grid(6, 4) } },
+        3: { points: { p1: grid(7, 4), p2: grid(12, 6), p3: grid(5, 9) } }
       },
       square_challenge: {
         1: { points: { p1: grid(10, 6), p2: grid(13, 10), p3: grid(6, 9) } }
@@ -368,47 +469,101 @@
     const levelColors = {
       1: { name: '綠色', stroke: '#10b981', fill: 'rgba(16, 185, 129, 0.15)', outline: '#059669' },
       2: { name: '藍色', stroke: '#3b82f6', fill: 'rgba(59, 130, 246, 0.15)', outline: '#2563eb' },
-      3: { name: '紫色', stroke: '#8b5cf6', fill: 'rgba(139, 92, 246, 0.15)', outline: '#7c3aed' },
-      4: { name: '紅色', stroke: '#ef4444', fill: 'rgba(239, 68, 68, 0.15)', outline: '#dc2626' }
+      3: { name: '紅色', stroke: '#ef4444', fill: 'rgba(239, 68, 68, 0.15)', outline: '#dc2626' }
     };
 
     // ==========================================
-    // 4. 畫面切換、驗證與密碼鎖
+    // 4. 知識小總結彈出視窗模組
     // ==========================================
+    function showSummary() {
+      const title = document.getElementById('summary-title');
+      const textEl = document.getElementById('summary-text');
+      const btnGroup = document.getElementById('summary-btn-group');
+
+      if (selectedShape === 'square') {
+        if (title) title.innerText = "🏆 恭喜完成正方形教學！";
+        if (textEl) {
+          textEl.innerHTML = "<strong>💡 小總結：</strong><br/>我們學會了<strong>利用輔助框找出與鄰邊長度相等和互相垂直的邊</strong>來畫出完美的正方形！";
+          textEl.classList.remove('hidden');
+        }
+        if (btnGroup) {
+          btnGroup.innerHTML = `
+            <button onclick="goToChallengeWithPwd()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-6 rounded-2xl shadow-md text-xl transition duration-200 mb-3 flex items-center justify-center space-x-2">
+              <i data-lucide="key" class="w-5 h-5"></i>
+              <span>輸入密碼進入挑戰區！</span>
+            </button>
+            <button onclick="backToMenuFromSummary()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl shadow-md text-lg transition duration-200">
+              返回關卡選單
+            </button>
+          `;
+        }
+      } else {
+        if (title) title.innerText = "🎉 恭喜通過終極正方形挑戰！";
+        if (textEl) textEl.classList.add('hidden');
+        if (btnGroup) {
+          btnGroup.innerHTML = `
+            <button onclick="backToMenuFromSummary()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-2xl shadow-md text-xl transition duration-200">
+              回到選擇關卡
+            </button>
+          `;
+        }
+      }
+      
+      const summaryModal = document.getElementById('summary-modal');
+      if (summaryModal) {
+        summaryModal.classList.remove('hidden');
+      }
+      if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+    }
+
+    function goToChallengeWithPwd() {
+      const summaryModal = document.getElementById('summary-modal');
+      if (summaryModal) summaryModal.classList.add('hidden');
+      
+      showStagePasswordModal('2', () => {
+          unlockChallenge(true);
+          proceedToShape('square_challenge');
+      });
+    }
+
+    function backToMenuFromSummary() {
+      const summaryModal = document.getElementById('summary-modal');
+      if (summaryModal) summaryModal.classList.add('hidden');
+      
+      unlockChallenge(true);
+      backToShapeSelection();
+    }
+
+    // ==========================================
+    // 5. 畫面導航、初始化與密碼控制
+    // ==========================================
+    let secretBuffer = "";
+    window.addEventListener('keydown', (e) => {
+      if (!e.key) return;
+      secretBuffer += e.key.toLowerCase();
+      if (secretBuffer.length > 6) secretBuffer = secretBuffer.slice(-6);
+      if (secretBuffer === 'tktcps') {
+        const selectionScreen = document.getElementById('selection-screen');
+        const shapeSelectionScreen = document.getElementById('shape-selection-screen');
+        const summaryModal = document.getElementById('summary-modal');
+        const pwdModal = document.getElementById('stage-password-modal');
+        if (selectionScreen) selectionScreen.classList.add('hidden');
+        if (shapeSelectionScreen) shapeSelectionScreen.classList.add('hidden');
+        if (summaryModal) summaryModal.classList.add('hidden');
+        if (pwdModal) pwdModal.classList.add('hidden');
+        
+        unlockChallenge(true);
+        proceedToShape('square_challenge');
+        showFeedback("🗝️ 魔法密碼 tktcps 啟動！直接進入挑戰區！");
+        secretBuffer = ""; 
+      }
+    });
+
     window.onload = function() { 
-      lucide.createIcons(); 
+      if (typeof lucide !== 'undefined') lucide.createIcons(); 
       drawGridIntersectionDots();
       setupGlobalBoxDrag();
     };
-
-    function showStagePasswordModal(pwd, cb) {
-      requiredPassword = pwd;
-      pendingCallback = cb;
-      document.getElementById('stage-pwd-input').value = '';
-      document.getElementById('stage-pwd-error').classList.add('hidden');
-      document.getElementById('stage-password-modal').classList.remove('hidden');
-    }
-
-    function verifyStagePassword() {
-      const pwd = document.getElementById('stage-pwd-input').value.trim();
-      if (pwd === requiredPassword) {
-          document.getElementById('stage-password-modal').classList.add('hidden');
-          if (pendingCallback) pendingCallback();
-      } else {
-          document.getElementById('stage-pwd-error').classList.remove('hidden');
-      }
-    }
-
-    function checkPasswordAndStart() {
-      const pwd = document.getElementById('challenge-password').value.trim();
-      const errEl = document.getElementById('password-error');
-      if (pwd === '2') {
-        if (errEl) errEl.classList.add('hidden');
-        startApp('challenge');
-      } else {
-        if (errEl) errEl.classList.remove('hidden');
-      }
-    }
 
     function startApp(mode) {
       appMode = mode;
@@ -425,44 +580,118 @@
           badge.className = "bg-emerald-100 text-emerald-800 px-4 py-1.5 rounded-full text-sm font-bold shadow-sm";
           unlockChallenge(false);
         } else {
-          badge.innerText = '挑戰模式 (密碼解鎖)';
+          badge.innerText = '挑戰模式 (已解鎖)';
           badge.className = "bg-rose-100 text-rose-800 px-4 py-1.5 rounded-full text-sm font-bold shadow-sm";
-          unlockChallenge(false);
+          unlockChallenge(true); // 【修復】：若是透過按鈕輸入密碼進入，強制解鎖挑戰題按鈕！
         }
       }
     }
 
+    function checkPasswordAndStart() {
+      const pwd = document.getElementById('challenge-password').value.trim();
+      const errEl = document.getElementById('password-error');
+      if (pwd === '2' || pwd.toLowerCase() === 'tktcps') {
+        if (errEl) errEl.classList.add('hidden');
+        startApp('challenge');
+      } else {
+        if (errEl) errEl.classList.remove('hidden');
+      }
+    }
+
+    function backToMenu() {
+      const shapeSelectionScreen = document.getElementById('shape-selection-screen');
+      if (shapeSelectionScreen) shapeSelectionScreen.classList.add('hidden');
+      
+      const selectionScreen = document.getElementById('selection-screen');
+      if (selectionScreen) selectionScreen.classList.remove('hidden');
+    }
+
+    function backToShapeSelection() {
+      const gameScreen = document.getElementById('game-screen');
+      if (gameScreen) gameScreen.classList.add('hidden');
+      
+      const shapeSelectionScreen = document.getElementById('shape-selection-screen');
+      if (shapeSelectionScreen) shapeSelectionScreen.classList.remove('hidden');
+    }
+
+    function clearGlobalEvents() {
+      if (globalOnMove) {
+        window.removeEventListener('pointermove', globalOnMove);
+        window.removeEventListener('mousemove', globalOnMove);
+        window.removeEventListener('touchmove', globalOnMove);
+        globalOnMove = null;
+      }
+      if (globalEndDrag) {
+        window.removeEventListener('pointerup', globalEndDrag);
+        window.removeEventListener('mouseup', globalEndDrag);
+        window.removeEventListener('touchend', globalEndDrag);
+        globalEndDrag = null;
+      }
+    }
+
+    function showStagePasswordModal(pwd, cb) {
+      requiredPassword = pwd;
+      pendingCallback = cb;
+      const pwdInput = document.getElementById('stage-pwd-input');
+      const pwdError = document.getElementById('stage-pwd-error');
+      const modal = document.getElementById('stage-password-modal');
+      
+      if (pwdInput) pwdInput.value = '';
+      if (pwdError) pwdError.classList.add('hidden');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function verifyStagePassword() {
+      const pwdInput = document.getElementById('stage-pwd-input');
+      const pwdError = document.getElementById('stage-pwd-error');
+      const modal = document.getElementById('stage-password-modal');
+      
+      if (!pwdInput) return;
+      
+      const pwd = pwdInput.value.trim();
+      if (pwd === requiredPassword) {
+          if (modal) modal.classList.add('hidden');
+          if (pendingCallback) pendingCallback();
+      } else {
+          if (pwdError) pwdError.classList.remove('hidden');
+      }
+    }
+
+    function unlockRectangleUI(forceUnlock) { }
+
     function unlockChallenge(forceUnlock) {
-      isChallengeUnlocked = forceUnlock || isChallengeUnlocked;
       const btn = document.getElementById('btn-challenge-select');
       const badge = document.getElementById('challenge-lock-badge');
-      if (isChallengeUnlocked) {
-        btn.classList.remove('opacity-50', 'cursor-not-allowed');
-        btn.classList.add('hover:bg-rose-50', 'border-rose-400');
-        btn.onclick = () => selectShape('square_challenge');
+      if (forceUnlock || isChallengeUnlocked) {
+        isChallengeUnlocked = true;
+        if (btn) {
+          btn.classList.remove('opacity-50', 'cursor-not-allowed');
+          btn.classList.add('hover:bg-rose-50', 'border-rose-400');
+          btn.onclick = () => selectShape('square_challenge');
+        }
         if (badge) {
             badge.innerHTML = `<i data-lucide="unlock" class="w-3.5 h-3.5"></i><span>已解碼</span>`;
             badge.className = "absolute -top-4 right-4 bg-rose-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center space-x-1";
         }
       } else {
-        btn.classList.add('opacity-50', 'cursor-not-allowed');
-        btn.classList.remove('hover:bg-rose-50', 'border-rose-400');
-        btn.onclick = null;
+        if (btn) {
+          btn.classList.add('opacity-50', 'cursor-not-allowed');
+          btn.classList.remove('hover:bg-rose-50', 'border-rose-400');
+          btn.onclick = null;
+        }
         if (badge) {
             badge.innerHTML = `<i data-lucide="lock" class="w-3.5 h-3.5"></i><span>完成教學題後解碼</span>`;
             badge.className = "absolute -top-4 right-4 bg-slate-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center space-x-1";
         }
       }
-      lucide.createIcons();
+      if (typeof lucide !== 'undefined') lucide.createIcons();
     }
 
     function selectShape(shape) {
       if (shape === 'square') {
-          // 教學題：密碼 2
           showStagePasswordModal('2', () => proceedToShape('square'));
       } else if (shape === 'square_challenge') {
-          // 挑戰區：密碼 2
-          showStagePasswordModal('2', () => proceedToShape('square_challenge'));
+          proceedToShape('square_challenge'); // 如果已經按過解鎖鈕，這裡不再重複問密碼
       }
     }
 
@@ -487,120 +716,21 @@
           currentDifficulty = 1;
           currentStage = 1;
           loadStage();
-        } else {
-          shapeBadge.innerText = '正方形挑戰區';
+        } else if (shape === 'square_challenge') {
+          shapeBadge.innerText = '正方形挑戰題';
           shapeBadge.className = 'bg-rose-100 text-rose-800 font-bold px-4 py-2 rounded-full text-lg shadow-sm';
           if(learningTools) learningTools.classList.add('hidden');
           if(challengeTools) challengeTools.classList.remove('hidden');
           chLevel = 1;
           chStreak = 0;
-          loadChallengeStage();
+          loadChallengeStage(false);
         }
       }
-    }
-
-    function backToMenu() {
-      const shapeSelectionScreen = document.getElementById('shape-selection-screen');
-      if (shapeSelectionScreen) shapeSelectionScreen.classList.add('hidden');
-      
-      const selectionScreen = document.getElementById('selection-screen');
-      if (selectionScreen) selectionScreen.classList.remove('hidden');
-    }
-
-    function backToShapeSelection() {
-      const gameScreen = document.getElementById('game-screen');
-      if (gameScreen) gameScreen.classList.add('hidden');
-      
-      const shapeSelectionScreen = document.getElementById('shape-selection-screen');
-      if (shapeSelectionScreen) shapeSelectionScreen.classList.remove('hidden');
-    }
-
-    function clearGlobalEvents() {
-      if (globalOnMove) {
-        window.removeEventListener('mousemove', globalOnMove);
-        window.removeEventListener('touchmove', globalOnMove);
-        globalOnMove = null;
-      }
-      if (globalEndDrag) {
-        window.removeEventListener('mouseup', globalEndDrag);
-        window.removeEventListener('touchend', globalEndDrag);
-        globalEndDrag = null;
-      }
-    }
-
-    // ==========================================
-    // 5. 共用視窗 Modal 控制
-    // ==========================================
-    function showHintPopup(title, message) {
-      document.getElementById('hint-modal-title').innerText = title;
-      document.getElementById('hint-modal-text').innerText = message;
-      document.getElementById('hint-modal').classList.remove('hidden');
-    }
-
-    function closeHintModal() {
-      document.getElementById('hint-modal').classList.add('hidden');
-      const errorGroup = document.getElementById('error-temp-lines');
-      if (errorGroup) errorGroup.innerHTML = '';
-      
-      chSelectedPt = null;
-      const selCircle = document.getElementById('ch-selected-pt');
-      if (selCircle) selCircle.classList.add('hidden');
-    }
-
-    function showSummary() {
-      const title = document.getElementById('summary-title');
-      const textEl = document.getElementById('summary-text');
-      const btnGroup = document.getElementById('summary-btn-group');
-
-      if (selectedShape === 'square') {
-        if (title) title.innerText = "🏆 恭喜完成 4 題正方形教學！";
-        if (textEl) {
-          textEl.innerHTML = "<strong>💡 小總結：</strong><br/>我們學會了<strong>利用輔助框，找出與鄰邊長度相等，而且互相垂直的邊</strong>來畫出完美的正方形！";
-          textEl.classList.remove('hidden');
-        }
-        
-        if (btnGroup) {
-          btnGroup.innerHTML = `
-            <button onclick="goToChallengeWithPwd()" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 px-6 rounded-2xl shadow-md text-xl transition duration-200 mb-3">
-              輸入密碼進入挑戰區！
-            </button>
-            <button onclick="backToMenuFromSummary()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 px-6 rounded-2xl shadow-md text-lg transition duration-200">
-              返回頁面
-            </button>
-          `;
-        }
-      } else {
-        if (title) title.innerText = "🎉 恭喜通過終極正方形挑戰！";
-        if (textEl) textEl.classList.add('hidden');
-        if (btnGroup) {
-          btnGroup.innerHTML = `
-            <button onclick="backToMenuFromSummary()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-2xl shadow-md text-xl transition duration-200">
-              回到選擇關卡
-            </button>
-          `;
-        }
-      }
-      const summaryModal = document.getElementById('summary-modal');
-      if (summaryModal) summaryModal.classList.remove('hidden');
-    }
-
-    function goToChallengeWithPwd() {
-      document.getElementById('summary-modal').classList.add('hidden');
-      showStagePasswordModal('2', () => {
-          unlockChallenge(true);
-          proceedToShape('square_challenge');
-      });
-    }
-
-    function backToMenuFromSummary() {
-      document.getElementById('summary-modal').classList.add('hidden');
-      unlockChallenge(true);
-      backToShapeSelection();
     }
 
     function resetCurrentStage() {
       if (selectedShape === 'square') loadStage();
-      else loadChallengeStage();
+      else if (selectedShape === 'square_challenge') loadChallengeStage(false);
     }
 
     function undoStep() {
@@ -608,18 +738,18 @@
     }
 
     // ==========================================
-    // 6. 格點與自製輔助框
+    // 6. 指標驅動輔助框與格點繪製模組 
     // ==========================================
     function drawGridIntersectionDots() {
       const g = document.getElementById('grid-points');
       if (!g) return;
       g.innerHTML = '';
-      for (let x = 0; x <= 500; x += 25) {
-        for (let y = 0; y <= 500; y += 25) {
+      for (let x = 0; x <= 350; x += 25) { 
+        for (let y = 0; y <= 350; y += 25) {
           const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
           dot.setAttribute("cx", x);
           dot.setAttribute("cy", y);
-          dot.setAttribute("r", "5"); 
+          dot.setAttribute("r", "6"); 
           dot.setAttribute("fill", "transparent");
           dot.setAttribute("class", "cursor-pointer hover:fill-rose-300 transition-colors duration-200");
           dot.onclick = () => onGridPointClick(x, y);
@@ -639,95 +769,86 @@
     }
 
     function onGridPointClick(x, y) {
-      if (selectedShape !== 'square_challenge') return; 
-      
-      const errGroup = document.getElementById('error-temp-lines');
-      if(errGroup) errGroup.innerHTML = '';
+      if (selectedShape === 'square_challenge') {
+          const errGroup = document.getElementById('error-temp-lines');
+          if(errGroup) errGroup.innerHTML = '';
 
-      chSelectedPt = {x, y};
-      const selCircle = document.getElementById('ch-selected-pt');
-      selCircle.setAttribute("cx", x);
-      selCircle.setAttribute("cy", y);
-      selCircle.setAttribute("stroke", "#ffffff");
-      selCircle.setAttribute("stroke-width", "2.5");
-      selCircle.setAttribute("fill", chCurrentColor);
-      selCircle.classList.remove('hidden');
-      
-      showFeedback(`🎯 已選擇十字交點，確認後請點擊「連起來！」`);
+          chSelectedPt = {x, y};
+          const selCircle = document.getElementById('ch-selected-pt');
+          if (selCircle) {
+            selCircle.setAttribute("cx", x);
+            selCircle.setAttribute("cy", y);
+            selCircle.setAttribute("stroke", "#ffffff");
+            selCircle.setAttribute("stroke-width", "2.5");
+            selCircle.setAttribute("fill", chCurrentColor);
+            selCircle.classList.remove('hidden');
+          }
+          showFeedback(`🎯 已選擇十字交點，確認後請點擊「連起來！」`);
+      }
     }
 
     function createCustomBox() {
       let w = parseInt(document.getElementById('custom-box-w').value);
       let h = parseInt(document.getElementById('custom-box-h').value);
       if (!w || !h || w <= 0 || h <= 0) {
-          showFeedback("⚠️ 請輸入有效的寬度和高度！");
+          showFeedback("⚠️ 請輸入有效的打橫和打直格數！");
           return;
       }
       
       chHintUsed = true;
-      chStreak = 0;
       updateChallengeUI();
 
       const group = document.getElementById('custom-boxes-group');
       const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
       rect.setAttribute("width", w * 25);
       rect.setAttribute("height", h * 25);
-      rect.setAttribute("x", 250 - (w*25)/2); 
-      rect.setAttribute("y", 250 - (h*25)/2);
+      rect.setAttribute("x", 175 - (w*25)/2); 
+      rect.setAttribute("y", 175 - (h*25)/2);
       rect.setAttribute("fill", chCurrentColor + "26"); 
       rect.setAttribute("stroke", chCurrentColor);
       rect.setAttribute("stroke-width", "3");
       rect.setAttribute("stroke-dasharray", "6,4");
       rect.setAttribute("class", "draggable-box");
+      rect.style.pointerEvents = "all";
       
-      rect.onmousedown = (e) => onBoxStartDrag(e, rect);
-      rect.ontouchstart = (e) => onBoxStartDrag(e, rect);
+      rect.addEventListener('pointerdown', (e) => onBoxStartDrag(e, rect));
       
       group.appendChild(rect);
-      showFeedback(`📐 已產生 ${w}×${h} 的輔助框！拖拉它來測量邊長吧。`);
+      showFeedback("📐 魔法屋出現了！請直接按住框框進行拖拉測量。");
     }
 
     function onBoxStartDrag(e, rect) {
       e.preventDefault();
       e.stopPropagation();
       isDraggingBox = rect;
+      rect.style.cursor = "grabbing";
       const container = document.getElementById('canvas-container').getBoundingClientRect();
-      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const clientX = e.clientX;
+      const clientY = e.clientY;
       let x = parseFloat(rect.getAttribute("x"));
       let y = parseFloat(rect.getAttribute("y"));
       boxDragOffset = {
-          x: ((clientX - container.left) / container.width * 500) - x,
-          y: ((clientY - container.top) / container.height * 500) - y
+          x: ((clientX - container.left) / container.width * 350) - x,
+          y: ((clientY - container.top) / container.height * 350) - y
       };
+      try { rect.setPointerCapture(e.pointerId); } catch(err) {}
     }
 
     function setupGlobalBoxDrag() {
-      window.addEventListener('mousemove', (e) => {
-        if (!isDraggingBox) return;
-        const container = document.getElementById('canvas-container').getBoundingClientRect();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        let nx = ((clientX - container.left) / container.width * 500) - boxDragOffset.x;
-        let ny = ((clientY - container.top) / container.height * 500) - boxDragOffset.y;
-        isDraggingBox.setAttribute("x", nx);
-        isDraggingBox.setAttribute("y", ny);
-      });
-
-      window.addEventListener('touchmove', (e) => {
+      window.addEventListener('pointermove', (e) => {
         if (!isDraggingBox) return;
         e.preventDefault();
         const container = document.getElementById('canvas-container').getBoundingClientRect();
-        const clientX = e.touches[0].clientX;
-        const clientY = e.touches[0].clientY;
-        let nx = ((clientX - container.left) / container.width * 500) - boxDragOffset.x;
-        let ny = ((clientY - container.top) / container.height * 500) - boxDragOffset.y;
+        let nx = ((e.clientX - container.left) / container.width * 350) - boxDragOffset.x;
+        let ny = ((e.clientY - container.top) / container.height * 350) - boxDragOffset.y;
         isDraggingBox.setAttribute("x", nx);
         isDraggingBox.setAttribute("y", ny);
       }, { passive: false });
 
-      const endBoxDrag = () => {
+      const endBoxDrag = (e) => {
         if (!isDraggingBox) return;
+        isDraggingBox.style.cursor = "grab";
+        try { isDraggingBox.releasePointerCapture(e.pointerId); } catch(err) {}
         let nx = Math.round(parseFloat(isDraggingBox.getAttribute("x")) / 25) * 25;
         let ny = Math.round(parseFloat(isDraggingBox.getAttribute("y")) / 25) * 25;
         isDraggingBox.setAttribute("x", nx);
@@ -735,18 +856,13 @@
         isDraggingBox = null;
       };
 
-      window.addEventListener('mouseup', endBoxDrag);
-      window.addEventListener('touchend', endBoxDrag);
+      window.addEventListener('pointerup', endBoxDrag);
+      window.addEventListener('pointercancel', endBoxDrag);
     }
 
     // ==========================================
-    // 7. 挑戰模式邏輯
+    // 7. 找點挑戰模式隨機產生與點擊連線批改 
     // ==========================================
-    function getRandomChallengeColor() {
-      const colors = ['#f43f5e', '#8b5cf6', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#ec4899', '#14b8a6'];
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
-
     function generateRandomChallengeSquare() {
       let valid = false;
       let p1, p2, p3, p4, dx, dy;
@@ -754,18 +870,15 @@
       let vectorPool = [];
       if (chStreak === 0) {
         vectorPool = [{dx: 3, dy: 1}, {dx: 1, dy: 3}, {dx: 2, dy: 2}, {dx: 3, dy: -1}, {dx: -1, dy: 3}];
-      } else if (chStreak === 1) {
-        vectorPool = [{dx: 4, dy: 2}, {dx: 2, dy: 4}, {dx: 3, dy: 3}, {dx: 4, dy: -2}, {dx: -2, dy: 4}, {dx: 3, dy: -3}];
       } else {
-        vectorPool = [{dx: 5, dy: 2}, {dx: 2, dy: 5}, {dx: 4, dy: 3}, {dx: 3, dy: 4}, {dx: 5, dy: -3}, {dx: -3, dy: 5}, {dx: 4, dy: -3}, {dx: -4, dy: 3}];
+        vectorPool = [{dx: 4, dy: 2}, {dx: 2, dy: 4}, {dx: 3, dy: 3}, {dx: 4, dy: -2}, {dx: -2, dy: 4}, {dx: 3, dy: -3}];
       }
 
       while(!valid) {
           let vec = vectorPool[Math.floor(Math.random() * vectorPool.length)];
           dx = vec.dx; dy = vec.dy;
-
-          let gx = Math.floor(Math.random() * (12)) + 4; 
-          let gy = Math.floor(Math.random() * (12)) + 4;
+          let gx = Math.floor(Math.random() * 6) + 3; 
+          let gy = Math.floor(Math.random() * 6) + 3;
           
           p1 = grid(gx, gy);
           p2 = grid(gx + dx, gy + dy);
@@ -773,38 +886,52 @@
           p4 = grid(gx + dx - dy, gy + dy + dx);
 
           const pts = [p1, p2, p3, p4];
-          valid = pts.every(p => p.x >= 25 && p.x <= 475 && p.y >= 25 && p.y <= 475);
+          valid = pts.every(p => p.x >= 25 && p.x <= 325 && p.y >= 25 && p.y <= 325);
       }
       return { p1, p2, p3, p4, dx, dy };
     }
 
-    function loadChallengeStage() {
+    function loadChallengeStage(isRetry) {
       clearGlobalEvents();
       
       chSelectedPt = null;
-      chHintUsed = false;
+      if (!isRetry) {
+          chHintUsed = false;
+      }
       chHintIndex = 0;
-      chCurrentColor = getRandomChallengeColor();
+      chCurrentColor = getRandomPaletteColor();
       
-      document.getElementById('fixed-lines').innerHTML = '';
-      document.getElementById('helper-rects').innerHTML = '';
-      document.getElementById('interactive-group').innerHTML = '';
-      document.getElementById('control-points').innerHTML = '';
-      document.getElementById('completed-polygon').setAttribute('points', '');
-      document.getElementById('completed-polygon').setAttribute('fill', 'none');
-      document.getElementById('persistent-helper-rects').innerHTML = '';
-      document.getElementById('challenge-lines').innerHTML = '';
-      document.getElementById('error-temp-lines').innerHTML = '';
-      document.getElementById('custom-boxes-group').innerHTML = '';
-      document.getElementById('ch-selected-pt').classList.add('hidden');
+      // 【防重疊修復】：統一清理陣列與圖層，確保挑戰與教學不重疊
+      const els = ['fixed-lines', 'helper-rects', 'interactive-group', 'control-points', 'persistent-helper-rects', 'challenge-lines', 'error-temp-lines', 'custom-boxes-group'];
+      els.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = '';
+      });
+      const poly = document.getElementById('completed-polygon');
+      if (poly) {
+          poly.setAttribute('points', '');
+          poly.setAttribute('fill', 'none');
+      }
+      const pt = document.getElementById('ch-selected-pt');
+      if (pt) pt.classList.add('hidden');
 
-      const sq = generateRandomChallengeSquare();
+      const stageTitle = document.getElementById('stage-title');
+      if (stageTitle) stageTitle.innerText = "正方形挑戰題";
+
+      let sq;
+      if (isRetry && currentChallengeSquare) {
+          sq = currentChallengeSquare;
+          showFeedback("❌ 答錯了！請再次挑戰原題目！(累積答對數仍會為您保留)"); 
+      } else {
+          sq = generateRandomChallengeSquare();
+          currentChallengeSquare = sq;
+      }
       
       if (chLevel === 1) {
           chGiven = [ {p1: sq.p1, p2: sq.p2}, {p1: sq.p1, p2: sq.p3} ];
           chExpected = [sq.p4]; 
           document.getElementById('stage-instruction').innerText = "第一關：觀察輔助框，找出剩下的 1 個頂點！";
-          showFeedback("請點擊方格紙上的十字交點，找出剩下的正方形頂點！");
+          if (!isRetry) showFeedback("請點擊方格紙上的十字交點，找出剩下的正方形頂點！");
       } else {
           chGiven = [ {p1: sq.p1, p2: sq.p2} ];
           let p3_mirror = { x: sq.p1.x + (sq.p1.y - sq.p2.y), y: sq.p1.y - (sq.p1.x - sq.p2.x) };
@@ -812,7 +939,7 @@
           
           chExpected = [sq.p3, p3_mirror, sq.p4, p4_mirror]; 
           document.getElementById('stage-instruction').innerText = "第二關：只提供一條邊，請依序點擊十字點找出剩下的 2 個頂點！";
-          showFeedback("難度提升！請找出能形成直角且等長的第二個頂點！");
+          if (!isRetry) showFeedback("難度提升！請找出能形成直角且等長的第二個頂點！");
       }
       
       updateChallengeUI();
@@ -824,18 +951,21 @@
       document.getElementById('challenge-level-text').innerText = levelText;
       
       const streakEl = document.getElementById('challenge-streak-text');
-      streakEl.innerText = `無提示連勝: ${chStreak} / 3`;
-      if(chHintUsed) {
-        streakEl.classList.add("text-slate-500");
-        streakEl.classList.remove("text-orange-600");
-      } else {
-        streakEl.classList.add("text-orange-600");
-        streakEl.classList.remove("text-slate-500");
+      if (streakEl) {
+          streakEl.innerText = `無提示答對: ${chStreak} / 3 題`; 
+          if(chHintUsed) {
+            streakEl.classList.add("text-slate-500");
+            streakEl.classList.remove("text-orange-600");
+          } else {
+            streakEl.classList.add("text-orange-600");
+            streakEl.classList.remove("text-slate-500");
+          }
       }
     }
 
     function drawChallengeElements() {
       const g = document.getElementById('challenge-lines');
+      if (!g) return;
       g.innerHTML = '';
       
       if (chGiven.length > 0) {
@@ -860,13 +990,10 @@
 
       chGiven.forEach(line => {
         const path = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        path.setAttribute("x1", line.p1.x);
-        path.setAttribute("y1", line.p1.y);
-        path.setAttribute("x2", line.p2.x);
-        path.setAttribute("y2", line.p2.y);
+        path.setAttribute("x1", line.p1.x); path.setAttribute("y1", line.p1.y);
+        path.setAttribute("x2", line.p2.x); path.setAttribute("y2", line.p2.y);
         path.setAttribute("stroke", chCurrentColor); 
-        path.setAttribute("stroke-width", "5");
-        path.setAttribute("stroke-linecap", "round");
+        path.setAttribute("stroke-width", "5"); path.setAttribute("stroke-linecap", "round");
         g.appendChild(path);
       });
       
@@ -878,37 +1005,30 @@
       
       allPoints.forEach(pt => {
         const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        c.setAttribute("cx", pt.x);
-        c.setAttribute("cy", pt.y);
+        c.setAttribute("cx", pt.x); c.setAttribute("cy", pt.y);
         c.setAttribute("r", "6");
         c.setAttribute("fill", chCurrentColor);
-        c.setAttribute("stroke", "#ffffff");
-        c.setAttribute("stroke-width", "2");
+        c.setAttribute("stroke", "#ffffff"); c.setAttribute("stroke-width", "2");
         g.appendChild(c);
       });
     }
 
     function createTempDashedLine(p1, p2, color) {
       const path = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      path.setAttribute("x1", p1.x);
-      path.setAttribute("y1", p1.y);
-      path.setAttribute("x2", p2.x);
-      path.setAttribute("y2", p2.y);
-      path.setAttribute("stroke", color);
-      path.setAttribute("stroke-width", "5");
-      path.setAttribute("stroke-linecap", "round");
-      path.setAttribute("stroke-dasharray", "8,8"); 
+      path.setAttribute("x1", p1.x); path.setAttribute("y1", p1.y);
+      path.setAttribute("x2", p2.x); path.setAttribute("y2", p2.y);
+      path.setAttribute("stroke", color); path.setAttribute("stroke-width", "5");
+      path.setAttribute("stroke-linecap", "round"); path.setAttribute("stroke-dasharray", "8,8"); 
       path.setAttribute("opacity", "0.6");
       document.getElementById('error-temp-lines').appendChild(path);
     }
 
     function analyzeAndShowError(pt) {
       chHintUsed = true;
-      chStreak = 0;
       updateChallengeUI();
       
       const errorGroup = document.getElementById('error-temp-lines');
-      errorGroup.innerHTML = ''; 
+      if (errorGroup) errorGroup.innerHTML = ''; 
 
       const baseLen = getDistance(chGiven[0].p1, chGiven[0].p2);
       
@@ -951,23 +1071,40 @@
           if (Math.abs(dClosest - baseLen) < 5) {
              showHintPopup("長度正確！", "但請留意是否能與相鄰的邊形成完美的『直角』喔！");
           } else {
-             showHintPopup("尋找輔助線索！", "請留意邊長是否相同，可以利用「自製輔助框」來測量喔！");
+             showHintPopup("尋找輔助線索！", "請留意邊長是否相同，可以利用「自製魔法屋」來測量喔！");
           }
         }
+      }
+      challengeRetryMode = true; 
+    }
+
+    function closeHintModal() {
+      document.getElementById('hint-modal').classList.add('hidden');
+      const errorGroup = document.getElementById('error-temp-lines');
+      if (errorGroup) errorGroup.innerHTML = '';
+      
+      chSelectedPt = null;
+      const selCircle = document.getElementById('ch-selected-pt');
+      if (selCircle) selCircle.classList.add('hidden');
+
+      if (selectedShape === 'square_challenge' && challengeRetryMode) {
+         loadChallengeStage(true); 
       }
     }
 
     function checkChallengeConnect() {
-      if (!chSelectedPt) {
-          showFeedback("⚠️ 請先點擊方格紙上的十字交點來選擇位置！");
-          return;
-      }
+      if (!chSelectedPt) { showFeedback("⚠️ 請先點擊方格紙上的十字交點來選擇位置！"); return; }
+      
+      // 【防雙擊崩潰修復】：一按下「連起來」立刻清空選取狀態
       const pt = chSelectedPt;
+      chSelectedPt = null;
+      const selCircle = document.getElementById('ch-selected-pt');
+      if (selCircle) selCircle.classList.add('hidden');
       
       if (chLevel === 1) {
           if (matchPoint(pt, chExpected[0])) {
-              chGiven.push({p1: chGiven[0].p2, p2: pt});
-              chGiven.push({p1: chGiven[1].p2, p2: pt});
+              chGiven.push({p1: {x: chGiven[0].p2.x, y: chGiven[0].p2.y}, p2: {x: pt.x, y: pt.y}}); 
+              chGiven.push({p1: {x: chGiven[1].p2.x, y: chGiven[1].p2.y}, p2: {x: pt.x, y: pt.y}});
               handleChallengeSuccess();
           } else {
               analyzeAndShowError(pt);
@@ -977,7 +1114,7 @@
               let matchIndex = chExpected.findIndex(ep => matchPoint(pt, ep));
               if (matchIndex !== -1) {
                   let startPt = (matchIndex === 0 || matchIndex === 1) ? chGiven[0].p1 : chGiven[0].p2;
-                  chGiven.push({p1: startPt, p2: pt});
+                  chGiven.push({p1: {x: startPt.x, y: startPt.y}, p2: {x: pt.x, y: pt.y}});
                   
                   let finalPt;
                   if (matchIndex === 0) finalPt = chExpected[2]; 
@@ -985,10 +1122,7 @@
                   else if (matchIndex === 2) finalPt = chExpected[0]; 
                   else if (matchIndex === 3) finalPt = chExpected[1];
                   
-                  chExpected = [finalPt];
-                  chSelectedPt = null;
-                  document.getElementById('ch-selected-pt').classList.add('hidden');
-                  document.getElementById('error-temp-lines').innerHTML = '';
+                  chExpected = [finalPt]; 
                   drawChallengeElements();
                   showFeedback("✅ 第一個點找對了！請繼續找出最後一個點並連起來！");
               } else {
@@ -998,7 +1132,7 @@
               if (matchPoint(pt, chExpected[0])) {
                   let endPt1 = chGiven[0].p1.x === chGiven[1].p1.x && chGiven[0].p1.y === chGiven[1].p1.y ? chGiven[0].p2 : chGiven[0].p1;
                   if (chGiven[0].p2.x === chGiven[1].p1.x && chGiven[0].p2.y === chGiven[1].p1.y) endPt1 = chGiven[0].p1;
-                  chGiven.push({p1: chGiven[1].p2, p2: pt});
+                  chGiven.push({p1: {x: chGiven[1].p2.x, y: chGiven[1].p2.y}, p2: {x: pt.x, y: pt.y}});
                   
                   let pointCounts = {};
                   chGiven.forEach(l => {
@@ -1013,7 +1147,7 @@
                       looseEnd = {x: parseFloat(coords[0]), y: parseFloat(coords[1])};
                     }
                   }
-                  if(looseEnd) chGiven.push({p1: looseEnd, p2: pt});
+                  if(looseEnd) chGiven.push({p1: looseEnd, p2: {x: pt.x, y: pt.y}});
                   
                   handleChallengeSuccess();
               } else {
@@ -1025,9 +1159,6 @@
 
     function handleChallengeSuccess() {
       drawChallengeElements();
-      document.getElementById('ch-selected-pt').classList.add('hidden');
-      document.getElementById('error-temp-lines').innerHTML = '';
-      
       const poly = document.getElementById('completed-polygon');
       let pointSet = [];
       chGiven.forEach(l => {
@@ -1037,102 +1168,37 @@
       const cx = pointSet.reduce((s, p) => s + p.x, 0) / 4;
       const cy = pointSet.reduce((s, p) => s + p.y, 0) / 4;
       pointSet.sort((a, b) => Math.atan2(a.y - cy, a.x - cx) - Math.atan2(b.y - cy, b.x - cx));
-      
       poly.setAttribute("points", pointSet.map(p => `${p.x},${p.y}`).join(' '));
-      poly.setAttribute("fill", `${chCurrentColor}33`); 
-      poly.setAttribute("stroke", chCurrentColor);
-      poly.setAttribute("stroke-width", "4");
+      poly.setAttribute("fill", `${chCurrentColor}33`); poly.setAttribute("stroke", chCurrentColor); poly.setAttribute("stroke-width", "4");
 
-      if (!chHintUsed) {
-        chStreak++;
-        showFeedback("🎉 完美！無提示成功連起圖形！");
-      } else {
-        chStreak = 0;
-        showFeedback("👍 成功連起圖形！(但本次使用了輔助，連勝歸零重新計算喔)");
+      if (!chHintUsed) { 
+        chStreak++; 
+        showFeedback("🎉 完美！無提示成功累積 1 題！"); 
+      } else { 
+        showFeedback("👍 成功連起圖形！(因為使用了提示或曾答錯，本題不計入無提示過關數中喔)"); 
       }
       updateChallengeUI();
+
+      challengeRetryMode = false;
 
       setTimeout(() => {
         if (chStreak >= 3) {
           if (chLevel === 1) {
-            chLevel = 2;
-            chStreak = 0;
-            showFeedback("🏆 恭喜晉級！接下來進入第二關：只給一條邊！");
-            setTimeout(loadChallengeStage, 2500);
-          } else {
-            showSummary(); 
-          }
-        } else {
-          loadChallengeStage();
-        }
+            chLevel = 2; chStreak = 0; showFeedback("🏆 恭喜晉級！接下來進入第二關：只給一條邊！");
+            setTimeout(() => loadChallengeStage(false), 2500);
+          } else showSummary(); 
+        } else loadChallengeStage(false);
       }, 2500);
     }
 
     function useChallengeHint() {
-      chHintUsed = true;
-      chStreak = 0;
-      updateChallengeUI();
-      showHintPopup("給你一個思考方向", chHints[chHintIndex]);
-      chHintIndex = (chHintIndex + 1) % chHints.length;
+      chHintUsed = true; updateChallengeUI();
+      showHintPopup("給你一個思考方向", chHints[chHintIndex]); chHintIndex = (chHintIndex + 1) % chHints.length;
     }
 
     // ==========================================
-    // 8. 教學模式專用：旋轉與動畫邏輯
+    // 8. 教學模式運作與最後一條邊動畫繪製引擎
     // ==========================================
-    function getOpenEnds() {
-      let counts = {};
-      let edges = {};
-      currentFixedLines.forEach((line) => {
-        let p1Key = `${Math.round(line.p1.x)},${Math.round(line.p1.y)}`;
-        let p2Key = `${Math.round(line.p2.x)},${Math.round(line.p2.y)}`;
-        
-        if (!counts[p1Key]) { counts[p1Key] = 0; edges[p1Key] = { point: line.p1, connectedTo: [] }; }
-        if (!counts[p2Key]) { counts[p2Key] = 0; edges[p2Key] = { point: line.p2, connectedTo: [] }; }
-        
-        counts[p1Key]++;
-        counts[p2Key]++;
-        edges[p1Key].connectedTo.push(line.p2);
-        edges[p2Key].connectedTo.push(line.p1);
-      });
-      
-      let openEnds = [];
-      for (let key in counts) {
-        if (counts[key] === 1) { 
-          openEnds.push({
-            point: edges[key].point,
-            pivotPoint: edges[key].connectedTo[0] 
-          });
-        }
-      }
-      return openEnds;
-    }
-
-    function addPersistentHelper(p1, p2, colorSet) {
-      const group = document.getElementById('persistent-helper-rects');
-      if (!group) return;
-      const pt2 = { x: p2.x, y: p1.y };
-      const pt3 = p2;
-      const pt4 = { x: p1.x, y: p2.y };
-      
-      const rect = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-      rect.setAttribute("points", `${p1.x},${p1.y} ${pt2.x},${pt2.y} ${pt3.x},${pt3.y} ${pt4.x},${pt4.y}`);
-      rect.setAttribute("stroke-dasharray", "4,4"); 
-      
-      if (colorSet) {
-         rect.setAttribute("stroke", colorSet.outline);
-         rect.setAttribute("stroke-width", "2.5");
-         rect.setAttribute("fill", colorSet.fill);
-         rect.setAttribute("opacity", "0.8");
-         rect.setAttribute("class", "persistent-colored-helper");
-      } else {
-         rect.setAttribute("stroke", "#f97316");
-         rect.setAttribute("stroke-width", "2");
-         rect.setAttribute("fill", "rgba(249, 115, 22, 0.05)");
-         rect.setAttribute("class", "persistent-orange-helper");
-      }
-      group.appendChild(rect);
-    }
-
     function loadStage() {
       clearGlobalEvents();
       isDrawingStageStarted = false;
@@ -1142,51 +1208,47 @@
       const config = DIFFICULTY_SETTINGS[selectedShape][currentDifficulty];
       const colorSet = levelColors[currentDifficulty];
       
-      const fixedLines = document.getElementById('fixed-lines');
-      if (fixedLines) fixedLines.innerHTML = '';
-      
-      const helperRects = document.getElementById('helper-rects');
-      if (helperRects) helperRects.innerHTML = '';
-      
-      const interactiveGroup = document.getElementById('interactive-group');
-      if (interactiveGroup) interactiveGroup.innerHTML = '';
-      
-      const controlPoints = document.getElementById('control-points');
-      if (controlPoints) controlPoints.innerHTML = '';
-      
+      // 【防重疊修復】：在載入教學模式時，徹底清空所有的繪圖圖層（包括挑戰題圖層）！
+      const els = ['fixed-lines', 'helper-rects', 'interactive-group', 'control-points', 'persistent-helper-rects', 'challenge-lines', 'error-temp-lines', 'custom-boxes-group'];
+      els.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.innerHTML = '';
+      });
       const completedPolygon = document.getElementById('completed-polygon');
       if (completedPolygon) {
         completedPolygon.setAttribute('points', '');
         completedPolygon.setAttribute('fill', 'none');
       }
-
-      const persistentGroup = document.getElementById('persistent-helper-rects');
-      if(persistentGroup) persistentGroup.innerHTML = '';
-      const customGroup = document.getElementById('custom-boxes-group');
-      if(customGroup) customGroup.innerHTML = '';
-      document.getElementById('ch-selected-pt').classList.add('hidden');
-      document.getElementById('error-temp-lines').innerHTML = '';
+      const ptEl = document.getElementById('ch-selected-pt');
+      if(ptEl) ptEl.classList.add('hidden');
 
       const stageTitle = document.getElementById('stage-title');
       if (stageTitle) {
-          const stageNum = currentDifficulty <= 2 ? 1 : 2;
-          const qNum = currentDifficulty <= 2 ? currentDifficulty : currentDifficulty - 2;
-          stageTitle.innerText = `第 ${stageNum} 關 - 第 ${qNum} 題 / 共 2 題`;
+          const stageNum = currentDifficulty <= 1 ? 1 : 2;
+          const questionInStage = currentDifficulty <= 1 ? currentDifficulty : currentDifficulty - 1;
+          stageTitle.innerText = `第 ${stageNum} 關 - 第 ${questionInStage} 題 / 共 3 題`;
       }
       
       const legendDot = document.getElementById('legend-color-dot');
       if (legendDot) legendDot.style.backgroundColor = colorSet.stroke;
       
       const stageInst = document.getElementById('stage-instruction');
-      const initialInstruction = `第一步: 製作一條與黑線(邊)互相垂直的${colorSet.name}邊`;
+      const initialInstruction = `第一步: 製作一條與黑線(邊)長度相同及互相垂直的${colorSet.name}邊`;
       
       if (stageInst) stageInst.innerText = initialInstruction;
       showFeedback(initialInstruction);
 
+      const nextBtn = document.getElementById('btn-next-question');
+      if (nextBtn) nextBtn.classList.add('hidden');
+      const undoBtn = document.getElementById('btn-undo');
+      if (undoBtn) undoBtn.classList.remove('hidden');
+      const resetBtn = document.getElementById('btn-reset-stage');
+      if (resetBtn) resetBtn.classList.remove('hidden');
+
       currentFixedLines = [];
       const pts = config.points;
-      currentFixedLines.push({ p1: {...pts.p1}, p2: {...pts.p2} }); 
-      currentFixedLines.push({ p1: {...pts.p1}, p2: {...pts.p3} }); 
+      currentFixedLines.push({ p1: { x: pts.p1.x, y: pts.p1.y }, p2: { x: pts.p2.x, y: pts.p2.y } }); 
+      currentFixedLines.push({ p1: { x: pts.p1.x, y: pts.p1.y }, p2: { x: pts.p3.x, y: pts.p3.y } }); 
 
       orangePoints = getOpenEnds();
       drawFixedElements();
@@ -1199,13 +1261,10 @@
       
       currentFixedLines.forEach(line => {
         const path = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        path.setAttribute("x1", line.p1.x);
-        path.setAttribute("y1", line.p1.y);
-        path.setAttribute("x2", line.p2.x);
-        path.setAttribute("y2", line.p2.y);
+        path.setAttribute("x1", line.p1.x); path.setAttribute("y1", line.p1.y);
+        path.setAttribute("x2", line.p2.x); path.setAttribute("y2", line.p2.y);
         path.setAttribute("stroke", "#1e293b"); 
-        path.setAttribute("stroke-width", "4");
-        path.setAttribute("stroke-linecap", "round");
+        path.setAttribute("stroke-width", "4"); path.setAttribute("stroke-linecap", "round");
         fixedLinesGroup.appendChild(path);
       });
       drawControlPoints();
@@ -1218,22 +1277,39 @@
 
       if (!isDrawingStageStarted && currentStage === 1) {
         orangePoints.forEach((opt, index) => {
-          const pt = opt.point;
-
-          const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-          circle.setAttribute("cx", pt.x);
-          circle.setAttribute("cy", pt.y);
-          circle.setAttribute("r", "5"); 
-          circle.setAttribute("fill", "#ea580c");
-          circle.setAttribute("stroke", "#fff");
-          circle.setAttribute("stroke-width", "2");
-          circle.setAttribute("class", "cursor-pointer hover:scale-125 transition-transform origin-center");
-          circle.style.transformOrigin = `${pt.x}px ${pt.y}px`;
           
-          circle.onclick = (e) => { e.stopPropagation(); onOrangePointClick(index); };
-          circle.ontouchstart = (e) => { e.stopPropagation(); onOrangePointClick(index); };
+          const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+          
+          const hitCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          hitCircle.setAttribute("cx", opt.point.x);
+          hitCircle.setAttribute("cy", opt.point.y);
+          hitCircle.setAttribute("r", "20"); 
+          hitCircle.setAttribute("fill", "transparent");
+          hitCircle.style.cursor = "pointer";
+          hitCircle.style.pointerEvents = "all";
+          
+          const visCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          visCircle.setAttribute("cx", opt.point.x);
+          visCircle.setAttribute("cy", opt.point.y);
+          visCircle.setAttribute("r", "6");
+          visCircle.setAttribute("fill", "#ea580c");
+          visCircle.setAttribute("stroke", "#fff");
+          visCircle.setAttribute("stroke-width", "2");
+          visCircle.setAttribute("class", "pointer-events-none transition-transform origin-center hover:scale-125");
+          visCircle.style.transformOrigin = `${opt.point.x}px ${opt.point.y}px`;
 
-          controlPointsGroup.appendChild(circle);
+          const trigger = (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            onOrangePointClick(index);
+          };
+          
+          hitCircle.addEventListener('mousedown', trigger);
+          hitCircle.addEventListener('touchstart', trigger, { passive: false });
+
+          g.appendChild(hitCircle);
+          g.appendChild(visCircle);
+          controlPointsGroup.appendChild(g);
         });
       }
     }
@@ -1241,13 +1317,13 @@
     function onOrangePointClick(index) {
       if (isDrawingStageStarted) return;
       isDrawingStageStarted = true;
+      
+      const controlPointsGroup = document.getElementById('control-points');
+      if (controlPointsGroup) controlPointsGroup.innerHTML = '';
 
       const opt = orangePoints[index];
-      const pClicked = opt.point;
-      const pOther = opt.pivotPoint; 
-
       const colorSet = levelColors[currentDifficulty];
-      setupRotationGroup(pOther, pClicked, colorSet);
+      setupRotationGroup(opt.pivotPoint, opt.point, colorSet);
       showFeedback(`按住並拖曳，請讓【${colorSet.name}線】與黑線成直角！`);
     }
 
@@ -1255,167 +1331,121 @@
       const helperGroup = document.getElementById('helper-rects');
       const interactiveGroup = document.getElementById('interactive-group');
       if (!helperGroup || !interactiveGroup) return;
-      
-      helperGroup.innerHTML = '';
-      interactiveGroup.innerHTML = '';
+      helperGroup.innerHTML = ''; interactiveGroup.innerHTML = '';
 
-      const p2 = { x: pClicked.x, y: pOther.y };
-      const p3 = pClicked;
-      const p4 = { x: pOther.x, y: pClicked.y };
+      const p2 = { x: pOther.x, y: pClicked.y }; 
+      const p3 = pOther; 
+      const p4 = { x: pClicked.x, y: pOther.y };
 
       const orangeRect = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-      orangeRect.setAttribute("points", `${pOther.x},${pOther.y} ${p2.x},${p2.y} ${p3.x},${p3.y} ${p4.x},${p4.y}`);
-      orangeRect.setAttribute("stroke", "#f97316");
-      orangeRect.setAttribute("stroke-width", "2");
-      orangeRect.setAttribute("stroke-dasharray", "4,4"); 
-      orangeRect.setAttribute("fill", "none");
+      orangeRect.setAttribute("points", `${pClicked.x},${pClicked.y} ${p2.x},${p2.y} ${p3.x},${p3.y} ${p4.x},${p4.y}`);
+      orangeRect.setAttribute("stroke", "#f97316"); orangeRect.setAttribute("stroke-width", "2");
+      orangeRect.setAttribute("stroke-dasharray", "4,4"); orangeRect.setAttribute("fill", "none");
       helperGroup.appendChild(orangeRect);
 
       const rotGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
       rotGroup.setAttribute("id", "rot-inner-group");
-      rotGroup.setAttribute("transform", `rotate(0, ${pOther.x}, ${pOther.y})`);
+      rotGroup.setAttribute("transform", `rotate(0, ${pClicked.x}, ${pClicked.y})`);
 
       const activeRect = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-      activeRect.setAttribute("points", `${pOther.x},${pOther.y} ${p2.x},${p2.y} ${p3.x},${p3.y} ${p4.x},${p4.y}`);
-      activeRect.setAttribute("stroke", colorSet.outline);
-      activeRect.setAttribute("stroke-width", "2");
-      activeRect.setAttribute("stroke-dasharray", "4,4"); 
-      activeRect.setAttribute("fill", colorSet.fill);
+      activeRect.setAttribute("points", `${pClicked.x},${pClicked.y} ${p2.x},${p2.y} ${p3.x},${p3.y} ${p4.x},${p4.y}`);
+      activeRect.setAttribute("stroke", colorSet.outline); activeRect.setAttribute("stroke-width", "2");
+      activeRect.setAttribute("stroke-dasharray", "4,4"); activeRect.setAttribute("fill", colorSet.fill);
       rotGroup.appendChild(activeRect);
 
       const activeLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      activeLine.setAttribute("x1", pOther.x);
-      activeLine.setAttribute("y1", pOther.y);
-      activeLine.setAttribute("x2", pClicked.x);
-      activeLine.setAttribute("y2", pClicked.y);
-      activeLine.setAttribute("stroke", colorSet.stroke);
-      activeLine.setAttribute("stroke-width", "5");
+      activeLine.setAttribute("x1", pClicked.x); activeLine.setAttribute("y1", pClicked.y);
+      activeLine.setAttribute("x2", pOther.x); activeLine.setAttribute("y2", pOther.y);
+      activeLine.setAttribute("stroke", colorSet.stroke); activeLine.setAttribute("stroke-width", "5");
       rotGroup.appendChild(activeLine);
 
-      const createHandle = (cx, cy, id) => {
-        const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-        c.setAttribute("cx", cx);
-        c.setAttribute("cy", cy);
-        c.setAttribute("r", "7"); 
-        c.setAttribute("fill", colorSet.stroke);
-        c.setAttribute("stroke", "#fff");
-        c.setAttribute("stroke-width", "2.5");
-        c.setAttribute("id", id);
-        c.setAttribute("class", "cursor-pointer hover:scale-125 transition-transform origin-center");
-        c.style.transformOrigin = `${cx}px ${cy}px`;
-        return c;
-      };
+      const handleGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      
+      const hitHandle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      hitHandle.setAttribute("cx", pOther.x); hitHandle.setAttribute("cy", pOther.y);
+      hitHandle.setAttribute("r", "24"); 
+      hitHandle.setAttribute("fill", "transparent");
+      hitHandle.style.cursor = "pointer";
+      hitHandle.style.pointerEvents = "all";
+      hitHandle.setAttribute("id", "rot-handle-1"); 
+      
+      const visHandle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      visHandle.setAttribute("cx", pOther.x); visHandle.setAttribute("cy", pOther.y);
+      visHandle.setAttribute("r", "8");
+      visHandle.setAttribute("fill", colorSet.stroke);
+      visHandle.setAttribute("stroke", "#fff"); visHandle.setAttribute("stroke-width", "2.5");
+      visHandle.setAttribute("class", "pointer-events-none transition-transform origin-center hover:scale-125");
+      visHandle.style.transformOrigin = `${pOther.x}px ${pOther.y}px`;
 
-      rotGroup.appendChild(createHandle(pOther.x, pOther.y, 'rot-handle-1'));
+      handleGroup.appendChild(hitHandle);
+      handleGroup.appendChild(visHandle);
+      
+      rotGroup.appendChild(handleGroup);
       interactiveGroup.appendChild(rotGroup);
 
-      const controlPoints = document.getElementById('control-points');
-      if (controlPoints) controlPoints.innerHTML = '';
       setupInteractionEvents(pOther, pClicked, colorSet);
     }
 
     function setupInteractionEvents(pA, pB, colorSet) {
       const container = document.getElementById('canvas-container');
-      const rotHandle1 = document.getElementById('rot-handle-1');
-      if (!container || !rotHandle1) return;
+      const rotGroup = document.getElementById('rot-inner-group');
+      if (!container || !rotGroup) return;
 
       currentRotationAngle = 0;
-      let currentPivot = null;
-      let currentHandle = null;
-      let lastMouseX = pA.x;
-      let lastMouseY = pA.y;
+      let currentPivot = pB; 
+      let currentHandle = pA; 
+      let lastMouseX = pA.x; let lastMouseY = pA.y;
 
       const startDrag = (e) => {
-        e.preventDefault();
-        isDragging = true;
-        dragPointType = 'rotate';
-        currentPivot = pB;
-        currentHandle = pA;
+        e.preventDefault(); isDragging = true; dragPointType = 'rotate';
       };
 
-      rotHandle1.addEventListener('mousedown', startDrag);
-      rotHandle1.addEventListener('touchstart', startDrag, { passive: false });
+      rotGroup.style.cursor = "pointer";
+      rotGroup.style.pointerEvents = "all";
+      rotGroup.addEventListener('mousedown', startDrag);
+      rotGroup.addEventListener('touchstart', startDrag, { passive: false });
 
       clearGlobalEvents();
 
       globalOnMove = (e) => {
         if (!isDragging || dragPointType !== 'rotate') return;
-        
+        e.preventDefault();
         const rect = container.getBoundingClientRect();
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        const x = (clientX - rect.left) / rect.width * 500;
-        const y = (clientY - rect.top) / rect.height * 500;
+        const x = (clientX - rect.left) / rect.width * 350; 
+        const y = (clientY - rect.top) / rect.height * 350;
+        lastMouseX = x; lastMouseY = y;
 
-        lastMouseX = x;
-        lastMouseY = y;
-
-        const currentMouseAngle = getAngle(currentPivot, { x, y });
-        const baseLineAngle = getAngle(currentPivot, currentHandle);
-        let diffAngle = currentMouseAngle - baseLineAngle;
-        
-        if (diffAngle < -180) diffAngle += 360;
-        if (diffAngle > 180) diffAngle -= 360;
-
+        let diffAngle = getAngle(currentPivot, { x, y }) - getAngle(currentPivot, currentHandle);
+        if (diffAngle < -180) diffAngle += 360; if (diffAngle > 180) diffAngle -= 360;
         currentRotationAngle = diffAngle;
-
         const innerGroup = document.getElementById('rot-inner-group');
-        if (innerGroup) {
-          innerGroup.setAttribute("transform", `rotate(${currentRotationAngle}, ${currentPivot.x}, ${currentPivot.y})`);
-        }
+        if (innerGroup) innerGroup.setAttribute("transform", `rotate(${currentRotationAngle}, ${currentPivot.x}, ${currentPivot.y})`);
       };
 
       globalEndDrag = () => {
         if (!isDragging || dragPointType !== 'rotate') return;
         isDragging = false;
 
-        const l1 = currentFixedLines[0];
-        const l2 = currentFixedLines[1];
-        let C, E1, E2;
-        if (getDistance(l1.p1, l2.p1) < 5) { C = l1.p1; E1 = l1.p2; E2 = l2.p2; }
-        else if (getDistance(l1.p1, l2.p2) < 5) { C = l1.p1; E1 = l1.p2; E2 = l2.p1; }
-        else if (getDistance(l1.p2, l2.p1) < 5) { C = l1.p2; E1 = l1.p1; E2 = l2.p2; }
-        else { C = l1.p2; E1 = l1.p1; E2 = l2.p1; }
-
-        let targetP4 = { x: E1.x + E2.x - C.x, y: E1.y + E2.y - C.y };
+        const l1 = currentFixedLines[0]; const l2 = currentFixedLines.length > 1 ? currentFixedLines[1] : null;
+        let C, targetP4;
         
-        let correctTargetAngle = getAngle(currentPivot, targetP4);
-        const rad = correctTargetAngle * Math.PI / 180;
-        const radius = getDistance(currentPivot, currentHandle);
-        const expectedRotTarget = {
-            x: currentPivot.x + Math.cos(rad) * radius,
-            y: currentPivot.y + Math.sin(rad) * radius
-        };
+        if (getDistance(l1.p1, l2.p1) < 5) { C = l1.p1; targetP4 = { x: l1.p2.x + l2.p2.x - C.x, y: l1.p2.y + l2.p2.y - C.y }; }
+        else if (getDistance(l1.p1, l2.p2) < 5) { C = l1.p1; targetP4 = { x: l1.p2.x + l2.p1.x - C.x, y: l1.p2.y + l2.p1.y - C.y }; }
+        else if (getDistance(l1.p2, l2.p1) < 5) { C = l1.p2; targetP4 = { x: l1.p1.x + l2.p2.x - C.x, y: l1.p1.y + l2.p2.y - C.y }; }
+        else { C = l1.p2; targetP4 = { x: l1.p1.x + l2.p1.x - C.x, y: l1.p1.y + l2.p1.y - C.y }; }
 
-        const targetDistance = getDistance({ x: lastMouseX, y: lastMouseY }, expectedRotTarget);
+        const targetDistance = getDistance({ x: lastMouseX, y: lastMouseY }, targetP4);
 
-        if (targetDistance <= 7.5) { 
-          let exactRotation = correctTargetAngle - getAngle(currentPivot, currentHandle);
-          if (exactRotation < -180) exactRotation += 360;
-          if (exactRotation > 180) exactRotation -= 360;
-
+        if (targetDistance <= 12.5) { 
+          let exactRotation = getAngle(currentPivot, targetP4) - getAngle(currentPivot, currentHandle);
+          if (exactRotation < -180) exactRotation += 360; if (exactRotation > 180) exactRotation -= 360;
           const innerGroup = document.getElementById('rot-inner-group');
-          if (innerGroup) {
-            innerGroup.setAttribute("transform", `rotate(${exactRotation}, ${currentPivot.x}, ${currentPivot.y})`);
-          }
+          if (innerGroup) innerGroup.setAttribute("transform", `rotate(${exactRotation}, ${currentPivot.x}, ${currentPivot.y})`);
           onRotationSuccess(currentPivot, currentHandle, exactRotation);
         } else {
-          const testRad = (getAngle(currentPivot, currentHandle) + currentRotationAngle) * Math.PI / 180;
-          const newPoint = { x: currentPivot.x + Math.cos(testRad) * radius, y: currentPivot.y + Math.sin(testRad) * radius };
-          const currentAngle = getAngle(currentPivot, newPoint);
-
-          let angleDiff = Math.abs(correctTargetAngle - currentAngle);
-          if (angleDiff > 180) angleDiff = 360 - angleDiff;
-
-          if (Math.abs(angleDiff - 180) < 15) {
-            showFeedback("角度對了！但方向反了喔，請往圖形『內部缺口』找尋直角目標！");
-          } else {
-            showFeedback(`對齊不夠準確喔！請將【${colorSet.name}線】精確地放到十字交點上！`);
-          }
-          resetRotationGroup();
-        }
-
-        function resetRotationGroup() {
+          showFeedback("對齊不夠準確喔！請將【彩色線】精確地放到十字交點上！");
           const innerGroup = document.getElementById('rot-inner-group');
           if (innerGroup) {
             innerGroup.style.transition = "transform 0.4s ease-out";
@@ -1433,143 +1463,110 @@
     }
 
     function onRotationSuccess(pivot, handle, angle) {
-      showFeedback("做得好！成功畫出第一條新邊線！");
-      
+      showFeedback("做得好！成功畫出新邊線！");
       const rad = (getAngle(pivot, handle) + angle) * Math.PI / 180;
       const dist = getDistance(pivot, handle);
-      const newPoint = { 
-        x: Math.round((pivot.x + Math.cos(rad) * dist) / 25) * 25, 
-        y: Math.round((pivot.y + Math.sin(rad) * dist) / 25) * 25 
-      };
+      const newPoint = { x: Math.round((pivot.x + Math.cos(rad) * dist) / 25) * 25, y: Math.round((pivot.y + Math.sin(rad) * dist) / 25) * 25 };
 
       currentFixedLines.push({ p1: {...pivot}, p2: newPoint });
       drawFixedElements();
-
-      const interactiveGroup = document.getElementById('interactive-group');
-      if (interactiveGroup) interactiveGroup.innerHTML = '';
-      
-      const helperRects = document.getElementById('helper-rects');
-      if (helperRects) helperRects.innerHTML = '';
+      document.getElementById('interactive-group').innerHTML = ''; document.getElementById('helper-rects').innerHTML = '';
 
       setTimeout(completeGeometryShape, 800);
     }
 
-    function getPolygonVertices() {
-      const config = DIFFICULTY_SETTINGS[selectedShape][currentDifficulty];
-      const pts = config.points;
-      const p4 = {
-        x: pts.p2.x + pts.p3.x - pts.p1.x,
-        y: pts.p2.y + pts.p3.y - pts.p1.y
-      };
-
-      const vertices = [pts.p1, pts.p2, p4, pts.p3];
-      const cx = vertices.reduce((sum, p) => sum + p.x, 0) / 4;
-      const cy = vertices.reduce((sum, p) => sum + p.y, 0) / 4;
-
-      return vertices.sort((a, b) => {
-        const angleA = Math.atan2(a.y - cy, a.x - cx);
-        const angleB = Math.atan2(b.y - cy, b.x - cx);
-        return angleA - angleB;
-      });
+    function drawAnimatedLine(group, pStart, pEnd) {
+      const closingLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
+      closingLine.setAttribute("x1", pStart.x); closingLine.setAttribute("y1", pStart.y);
+      closingLine.setAttribute("x2", pEnd.x); closingLine.setAttribute("y2", pEnd.y);
+      closingLine.setAttribute("stroke", "#1e293b"); closingLine.setAttribute("stroke-width", "4"); closingLine.setAttribute("stroke-linecap", "round");
+      
+      const dist = getDistance(pStart, pEnd);
+      closingLine.setAttribute("stroke-dasharray", dist); closingLine.setAttribute("stroke-dashoffset", dist);
+      closingLine.style.transition = "stroke-dashoffset 1.5s ease-in-out";
+      group.appendChild(closingLine);
+      
+      closingLine.getBoundingClientRect(); 
+      closingLine.setAttribute("stroke-dashoffset", "0");
+      return closingLine;
     }
 
-    // --- 升級：自動畫線加入 1.5 秒過程動畫 ---
     function completeGeometryShape() {
       showFeedback("拼圖完成！系統正在自動連起最後一條邊...");
       
-      let openEnds = getOpenEnds();
-      if (!openEnds || openEnds.length < 2) {
-        openEnds = [{point: currentFixedLines[0].p1}, {point: currentFixedLines[currentFixedLines.length-1].p2}];
-      }
-
-      let pStart = openEnds[0].point;
-      let pEnd = openEnds[1].point;
-
       const config = DIFFICULTY_SETTINGS[selectedShape][currentDifficulty];
       const pts = config.points;
-      const p4 = {
-        x: pts.p2.x + pts.p3.x - pts.p1.x,
-        y: pts.p2.y + pts.p3.y - pts.p1.y
-      };
-
+      let p4 = { x: pts.p2.x + pts.p3.x - pts.p1.x, y: pts.p2.y + pts.p3.y - pts.p1.y };
+      
       const persistentGroup = document.getElementById('persistent-helper-rects');
       if (persistentGroup) {
         persistentGroup.innerHTML = '';
-        addPersistentHelper(pts.p1, pts.p2, null);
-        addPersistentHelper(pts.p1, pts.p3, null);
-        addPersistentHelper(pts.p2, p4, levelColors[currentDifficulty]);
-        addPersistentHelper(pts.p3, p4, levelColors[currentDifficulty]);
+        addPersistentHelper(pts.p1, pts.p2, null); addPersistentHelper(pts.p1, pts.p3, null);
+        addPersistentHelper(pts.p2, p4, levelColors[currentDifficulty]); addPersistentHelper(pts.p3, p4, levelColors[currentDifficulty]);
       }
 
       const fixedLinesGroup = document.getElementById('fixed-lines');
+      let closingLines = [];
       if (fixedLinesGroup) {
-        const closingLine = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        closingLine.setAttribute("x1", pStart.x);
-        closingLine.setAttribute("y1", pStart.y);
-        closingLine.setAttribute("x2", pEnd.x);
-        closingLine.setAttribute("y2", pEnd.y);
-        closingLine.setAttribute("stroke", "#1e293b"); 
-        closingLine.setAttribute("stroke-width", "4");
-        closingLine.setAttribute("stroke-linecap", "round");
-        
-        // 畫線動畫設定
-        const dist = getDistance(pStart, pEnd);
-        closingLine.setAttribute("stroke-dasharray", dist);
-        closingLine.setAttribute("stroke-dashoffset", dist);
-        closingLine.style.transition = "stroke-dashoffset 1.5s ease-in-out";
-        
-        fixedLinesGroup.appendChild(closingLine);
-        
-        // 強制瀏覽器重繪以觸發動畫
-        closingLine.getBoundingClientRect();
-        closingLine.setAttribute("stroke-dashoffset", "0");
+         let openEnds = getOpenEnds();
+         if (openEnds.length >= 2) {
+             closingLines.push(drawAnimatedLine(fixedLinesGroup, openEnds[0].point, openEnds[1].point));
+             currentFixedLines.push({ p1: { x: openEnds[0].point.x, y: openEnds[0].point.y }, p2: { x: openEnds[1].point.x, y: openEnds[1].point.y } });
+         }
       }
 
       const currentSession = stageSessionId;
 
-      // 延遲等待線條畫完後再著色並判定過關
       setTimeout(() => {
           if (currentSession !== stageSessionId) return; 
 
-          if (fixedLinesGroup && fixedLinesGroup.lastChild) {
-              fixedLinesGroup.lastChild.classList.add("success-lock");
-          }
-
-          currentFixedLines.push({ p1: pStart, p2: pEnd });
-          const ptsArr = getPolygonVertices();
-          currentFixedLines.pop(); 
+          closingLines.forEach(line => { if(line) line.classList.add("success-lock"); });
+          
+          let vertices = [pts.p1, pts.p2, p4, pts.p3];
+          let cx = vertices.reduce((sum, p) => sum + p.x, 0) / 4;
+          let cy = vertices.reduce((sum, p) => sum + p.y, 0) / 4;
+          vertices.sort((a, b) => Math.atan2(a.y - cy, a.x - cx) - Math.atan2(b.y - cy, b.x - cx));
           
           const completedPoly = document.getElementById('completed-polygon');
           if (completedPoly) {
-            completedPoly.setAttribute("points", ptsArr.map(p => `${p.x},${p.y}`).join(' '));
-            completedPoly.setAttribute("fill", selectedShape === 'square' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(79, 70, 229, 0.2)');
-            completedPoly.setAttribute("stroke", selectedShape === 'square' ? '#d97706' : '#4f46e5');
+            completedPoly.setAttribute("points", vertices.map(p => `${p.x},${p.y}`).join(' '));
+            completedPoly.setAttribute("fill", 'rgba(245, 158, 11, 0.2)');
+            completedPoly.setAttribute("stroke", '#d97706');
             completedPoly.setAttribute("stroke-width", "4");
           }
+          
+          showFeedback("恭喜過關！幾何圖形已拼合，請點選下方「下一題」！");
 
-          showFeedback("恭喜過關！傾斜圖形完美對齊格點！");
-
-          setTimeout(() => {
-            if (currentSession !== stageSessionId) return;
-
-            if (currentDifficulty < 4) {
-              // 進入第二關 (第3題) 前，必須輸入密碼 '3'
-              if (currentDifficulty === 2) {
-                  showStagePasswordModal('3', () => {
-                      currentDifficulty++;
-                      currentStage = 1;
-                      loadStage();
-                  });
-              } else {
-                  currentDifficulty++;
-                  currentStage = 1;
-                  loadStage();
-              }
-            } else {
-              showSummary();
-            }
-          }, 2500); 
+          const nextBtn = document.getElementById('btn-next-question');
+          if (nextBtn) nextBtn.classList.remove('hidden');
+          const undoBtn = document.getElementById('btn-undo');
+          if (undoBtn) undoBtn.classList.add('hidden');
+          const resetBtn = document.getElementById('btn-reset-stage');
+          if (resetBtn) resetBtn.classList.remove('hidden');
+          
+          lucide.createIcons();
       }, 1500); 
+    }
+
+    function handleNextQuestionClick() {
+      const nextBtn = document.getElementById('btn-next-question');
+      if (nextBtn) nextBtn.classList.add('hidden');
+
+      if (currentDifficulty < 3) {
+        if (currentDifficulty === 1) { 
+            showStagePasswordModal('3', () => { 
+                currentDifficulty++; 
+                currentStage = 1; 
+                loadStage(); 
+            });
+        } else {
+            currentDifficulty++; 
+            currentStage = 1; 
+            loadStage();
+        }
+      } else {
+        showSummary();
+      }
     }
   </script>
 </body>
