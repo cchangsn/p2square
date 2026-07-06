@@ -24,6 +24,12 @@
     .draggable-box:active{cursor:grabbing;}
     @keyframes bounce-short{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
     .animate-bounce-short{animation:bounce-short 0.4s ease-out 1;}
+    @keyframes rhyme-glow{0%,100%{box-shadow:0 0 0 0 rgba(245,158,11,0);}50%{box-shadow:0 0 18px 6px rgba(245,158,11,0.45);}}
+    .rhyme-glow{animation:rhyme-glow 1.6s ease-in-out infinite;}
+    @keyframes rhyme-glow-green{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0);}50%{box-shadow:0 0 18px 6px rgba(16,185,129,0.45);}}
+    .rhyme-glow-green{animation:rhyme-glow-green 1.6s ease-in-out infinite;}
+    @keyframes rhyme-glow-rose{0%,100%{box-shadow:0 0 0 0 rgba(225,29,72,0);}50%{box-shadow:0 0 18px 6px rgba(225,29,72,0.45);}}
+    .rhyme-glow-rose{animation:rhyme-glow-rose 1.6s ease-in-out infinite;}
   </style>
 </head>
 <body class="bg-amber-50 min-h-screen font-sans text-slate-800">
@@ -318,42 +324,34 @@
 
 <!-- 總結彈窗 -->
 <div id="summary-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-  <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border-4 border-amber-400 text-center">
+  <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border-4 border-amber-400 text-center overflow-y-auto max-h-[95vh]">
     <div class="bg-amber-100 p-4 rounded-full text-amber-600 inline-block mb-4"><i data-lucide="award" class="w-16 h-16 mx-auto"></i></div>
     <h3 id="summary-title" class="text-3xl font-bold text-amber-900 mb-4">恭喜完成！</h3>
-    <p id="summary-body" class="text-lg text-amber-800 bg-amber-50 p-4 rounded-xl mb-6 border-2 border-amber-200 leading-relaxed"></p>
+    <div id="summary-body" class="text-lg text-amber-800 bg-amber-50 p-4 rounded-xl mb-6 border-2 border-amber-200 leading-relaxed"></div>
     <div id="summary-btn-group" class="flex flex-col gap-3"></div>
   </div>
 </div>
 
 <script>
-// ══════════════════════════════════════════════
-//  常數
-// ══════════════════════════════════════════════
-const STEP = 25;
-const FOUR_FRAME_COLORS = ['#e11d48','#9333ea','#3b82f6','#0891b2'];
-const lvColors = {
+const STEP=25;
+const FOUR_FRAME_COLORS=['#e11d48','#9333ea','#3b82f6','#0891b2'];
+const lvColors={
   1:{stroke:'#10b981',fill:'rgba(16,185,129,0.15)',outline:'#059669'},
   2:{stroke:'#3b82f6',fill:'rgba(59,130,246,0.15)',outline:'#2563eb'},
   3:{stroke:'#ef4444',fill:'rgba(239,68,68,0.15)',outline:'#dc2626'}
 };
 const crColors=['#e11d48','#9333ea','#2563eb','#0891b2','#059669','#65a30d','#ca8a04','#ea580c','#dc2626','#4f46e5','#0ea5e9'];
-
 const ADJ_TIPS={
   1:"正方形的四條邊都相等。\n魔法屋的格數 = 鄰邊的格數！\n兩個魔法屋對齊後，交界點就是頂點。",
   2:"正方形鄰邊等長且互相垂直。\n由一條邊可以推算出兩條鄰邊的長度，再用3個魔法屋找出另外兩個頂點！",
   3:"鄰邊等長且垂直 → 心算打格數 → 直接落針！不需要魔法屋也能搵到頂點！"
 };
-
 const CH_HINTS=[
   "正方形：鄰邊等長且互相垂直！魔法屋的格數必須與已知邊一樣。",
   "從已知邊的端點，沿垂直方向數相同格數，就是下一個頂點的位置！",
   "正方形四條邊都相等——量好鄰邊格數，就能找到所有頂點！"
 ];
 
-// ══════════════════════════════════════════════
-//  工具函式
-// ══════════════════════════════════════════════
 function grid(gx,gy){return{x:gx*STEP,y:350-gy*STEP};}
 function isValidPt(p){return p.x>=25&&p.x<=325&&p.y>=25&&p.y<=325;}
 function dist(a,b){return Math.sqrt((b.x-a.x)**2+(b.y-a.y)**2);}
@@ -378,9 +376,6 @@ function closeHint(){document.getElementById('hint-modal').classList.add('hidden
 function getRandomPaletteColor(){return crColors[Math.floor(Math.random()*crColors.length)];}
 function setAdjTip(lv){const el=document.getElementById('adj-side-tip');if(el)el.innerText=ADJ_TIPS[lv]||ADJ_TIPS[1];}
 
-// ══════════════════════════════════════════════
-//  關卡資料
-// ══════════════════════════════════════════════
 const STAGES={
   square_lv1:{
     1:{p1:grid(7,3),p2:grid(11,7),p3:grid(3,7),p4:grid(7,11)},
@@ -409,9 +404,6 @@ const STAGES={
   }
 };
 
-// ══════════════════════════════════════════════
-//  全域狀態
-// ══════════════════════════════════════════════
 let appMode='',selShape='';
 let curDiff=1,lv2Sub=1;
 let fixedLines=[],orangePts=[];
@@ -421,7 +413,6 @@ let rect2={};
 let sessionId=0;
 let completedEdges=[];
 let pendingPwCb=null,pendingPwExpected='2026';
-
 let chLevel=1,chQuestionIndex=1,chScore=0;
 let chCustomBoxCount=0,chHintIndex=0;
 let chGiven=[],chSelectedPts=[];
@@ -433,9 +424,6 @@ let chCurrentStep=1,chCurrentColor='';
 function safeCall(fn,delay){const s=sessionId;setTimeout(()=>{if(s===sessionId)fn();},delay);}
 function isSquareShape(){return selShape==='square_lv1'||selShape==='square_lv2';}
 
-// ══════════════════════════════════════════════
-//  密碼系統（支援自訂密碼）
-// ══════════════════════════════════════════════
 function showPasswordModal(subtitle,onSuccess,expectedPw){
   pendingPwExpected=expectedPw||'2026';
   document.getElementById('pw-sub').innerText=subtitle||'請輸入密碼才能繼續';
@@ -460,9 +448,6 @@ function submitPassword(){
   }
 }
 
-// ══════════════════════════════════════════════
-//  初始化
-// ══════════════════════════════════════════════
 window.onload=function(){lucide.createIcons();drawDots();};
 
 function drawDots(){
@@ -477,9 +462,6 @@ function drawDots(){
   }
 }
 
-// ══════════════════════════════════════════════
-//  導航
-// ══════════════════════════════════════════════
 function startApp(mode){
   appMode=mode;
   document.getElementById('selection-screen').classList.add('hidden');
@@ -506,9 +488,17 @@ function backToShapeSelection(){
   completedEdges=[];clr('four-helper-boxes');
 }
 
-// ══════════════════════════════════════════════
-//  教學模式進入（密碼 2026）
-// ══════════════════════════════════════════════
+function goToChallengeArea(){
+  document.getElementById('summary-modal').classList.add('hidden');
+  appMode='challenge';
+  document.getElementById('game-screen').classList.add('hidden');
+  document.getElementById('shape-selection-screen').classList.remove('hidden');
+  document.getElementById('learning-shape-section').classList.add('hidden');
+  document.getElementById('challenge-section').classList.remove('hidden');
+  document.getElementById('mode-badge').innerText='🏆 挑戰模式';
+  lucide.createIcons();
+}
+
 function proceedToShape(shape){
   const labels={square_lv1:'正方形 第一關',square_lv2:'正方形 第二關',rectangle_lv1:'長方形 第一關',rectangle_lv2:'長方形 第二關'};
   showPasswordModal('🔐 請輸入密碼進入「'+(labels[shape]||shape)+'」',()=>{
@@ -528,9 +518,6 @@ function proceedToShape(shape){
   },'2026');
 }
 
-// ══════════════════════════════════════════════
-//  挑戰模式進入（密碼 tktcps，之後全程不需密碼）
-// ══════════════════════════════════════════════
 function enterChallengeLevel(lv){
   const lvNames={1:'難度一（給定兩條鄰邊）',2:'難度二（給定一條邊）',3:'終極心算挑戰'};
   showPasswordModal(
@@ -558,13 +545,10 @@ function enterChallengeLevel(lv){
       loadChallengeStage(false);
       lucide.createIcons();
     },
-    'tktcps'  // ★ 挑戰模式唯一密碼，之後全程不需要
+    'tktcps'
   );
 }
 
-// ══════════════════════════════════════════════
-//  挑戰模式核心
-// ══════════════════════════════════════════════
 function generateRandomChallengeSquare(){
   const pool=[
     {v1:{x:3,y:1},v2:{x:-1,y:3}},{v1:{x:2,y:2},v2:{x:-2,y:2}},
@@ -607,30 +591,24 @@ function loadChallengeStage(isRetry){
   if(!isRetry){chCustomBoxCount=0;chUsedHint=false;chUsedMagicBox=false;}
   chCurrentColor=getRandomPaletteColor();sessionId++;
   chCurrentStep=(chLevel===3)?2:1;
-
   ['fixed-lines','helper-rects','interactive-group','control-points','persistent-helper-rects',
    'challenge-lines','error-temp-lines','custom-boxes-group','selected-points-container',
    'four-helper-boxes'].forEach(id=>clr(id));
   const poly=document.getElementById('completed-polygon');
   if(poly){poly.setAttribute('points','');poly.setAttribute('fill','none');}
-
   const lvName=document.getElementById('challenge-level-name');
   if(lvName) lvName.innerText=chLevel===1?"難度一 (給定兩條鄰邊)":chLevel===2?"難度二 (給定一條邊)":"🔥 終極心算挑戰";
   const prog=document.getElementById('challenge-progress-text');
   if(prog) prog.innerText=chLevel===3?"🏆 不靠提示得 1 分！":"第 "+chQuestionIndex+" 題 / 共 3 題";
-
   document.getElementById('stage-title').innerText=
     '正方形 ('+(chLevel===1?"難度一":chLevel===2?"難度二":"終極")+') — 第 '+chQuestionIndex+' 題';
-
   let sq=chLevel===3?generateRandomChallengeSquare():STAGES.square_challenge[chQuestionIndex];
   currentChallengeSquare=sq;
-
   const w1=Math.round(Math.abs(sq.p2.x-sq.p1.x)/STEP),h1=Math.round(Math.abs(sq.p2.y-sq.p1.y)/STEP);
   const w2=Math.round(Math.abs(sq.p3.x-sq.p1.x)/STEP),h2=Math.round(Math.abs(sq.p3.y-sq.p1.y)/STEP);
   const p3_B={x:2*sq.p1.x-sq.p3.x,y:2*sq.p1.y-sq.p3.y};
   const p4_B={x:2*sq.p2.x-sq.p4.x,y:2*sq.p2.y-sq.p4.y};
   const optB=isValidPt(p3_B)&&isValidPt(p4_B);
-
   let boxesA=[],boxesB=[];
   if(chLevel===1){
     boxesA=[
@@ -656,7 +634,6 @@ function loadChallengeStage(isRetry){
   chPossibleSides={'A':boxesA};
   if(optB&&boxesB.length&&chLevel>1) chPossibleSides['B']=boxesB;
   chRequiredBoxes=chPossibleSides['A'];
-
   if(chLevel===1){
     chGiven=[{p1:sq.p1,p2:sq.p2},{p1:sq.p1,p2:sq.p3}];
     addPersistentHelper(sq.p1,sq.p2,{outline:'#3b82f6',fill:'rgba(59,130,246,0.2)'},null,true);
@@ -673,9 +650,7 @@ function loadChallengeStage(isRetry){
     document.getElementById('stage-instruction').innerText="鄰邊等長且垂直 → 心算定頂點 → 落針連線！";
     showFB("👉 心算出鄰邊位置，點選交叉點落針，按【連起來！】");
   }
-
   updateTaskStatusBar();drawChallengeElements();drawDots();
-
   safeCall(()=>{
     if(chLevel===1) showHint("📐 難度一：給定兩條鄰邊","兩條鄰邊已給出！\n\n正方形四條邊等長，根據鄰邊格數，自製 2 個魔法屋並拖曳對齊，交界點就是第四頂點！");
     else if(chLevel===2) showHint("📐 難度二：給定一條邊","只給一條邊！\n\n鄰邊與已知邊等長且垂直，自製 3 個鄰邊魔法屋，拖曳對齊後落針連線！");
@@ -865,7 +840,6 @@ function checkChallengeConnect(){
   const p4_B={x:2*sq.p2.x-sq.p4.x,y:2*sq.p2.y-sq.p4.y};
   const optB=isValidPt(p3_B)&&isValidPt(p4_B)&&chLevel>1;
   const s1=chSelectedPts[0];
-
   if(chLevel===1){
     if(matchPt(s1,p4_A)){
       isSuccess=true;chCurrentColor=getRandomPaletteColor();
@@ -881,7 +855,6 @@ function checkChallengeConnect(){
       chGiven.push({p1:sq.p1,p2:p3_B});chGiven.push({p1:sq.p2,p2:p4_B});chGiven.push({p1:p3_B,p2:p4_B});
     }
   }
-
   if(isSuccess){
     isStageCompleting=true;chSelectedPts=[];drawSelectedPoints();
     if(chLevel===3){
@@ -905,9 +878,6 @@ function checkChallengeConnect(){
   }
 }
 
-// ══════════════════════════════════════════════
-//  ★ 挑戰成功 — 全程無密碼，直接進入下一題
-// ══════════════════════════════════════════════
 function handleChallengeSuccess(){
   drawChallengeElements();
   const poly=document.getElementById('completed-polygon');
@@ -927,19 +897,16 @@ function handleChallengeSuccess(){
   safeCall(()=>{
     if(chLevel===3){
       if(chScore>=3){
-        showChallengeSummary('🏆 幾何終極大師！','連續靠鄰邊心算得了 3 分！完全掌握鄰邊知識！');
+        showChallengeSummary('🏆 幾何終極大師！','連續靠鄰邊心算得了 3 分！你完全掌握鄰邊知識！');
       }else{
-        // ★ 直接下一題，無密碼
         chQuestionIndex=(chQuestionIndex%3)+1;
         loadChallengeStage(false);
       }
     }else{
       if(chQuestionIndex<3){
-        // ★ 直接下一題，無密碼
         chQuestionIndex++;
         loadChallengeStage(false);
       }else{
-        // ★ 直接顯示完成畫面，無密碼
         showChallengeSummary('🎉 挑戰完成！','全部 3 題完成！你能用鄰邊魔法屋精準找出正方形的頂點！');
       }
     }
@@ -948,9 +915,30 @@ function handleChallengeSuccess(){
 
 function showChallengeSummary(title,msg){
   document.getElementById('summary-title').innerText=title;
-  document.getElementById('summary-body').innerText=msg;
-  document.getElementById('summary-btn-group').innerHTML=
-    '<button onclick="closeSummaryToSelection()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-2xl text-xl transition">返回選單</button>';
+  const body=document.getElementById('summary-body');
+  body.className='p-0 mb-6';
+  body.innerHTML=`
+    <div class="bg-rose-50 border-2 border-rose-200 rounded-xl p-4 text-left space-y-3">
+      <p class="text-center font-black text-rose-800 text-base">🏆 正方形鄰邊口訣大回顧</p>
+      <p class="text-slate-600 text-sm text-center font-semibold leading-snug">${msg}</p>
+      <div class="bg-amber-400 border-2 border-amber-600 rounded-xl p-3 text-center rhyme-glow">
+        <p class="text-xs text-amber-900 font-bold mb-1 tracking-wide">✨ 製作魔法屋口訣</p>
+        <p class="text-2xl font-black text-white tracking-widest drop-shadow">「橫變直，直變橫」</p>
+        <p class="text-xs text-amber-900 mt-1 font-semibold">旋轉後橫的變直、直的變橫，格數不變！</p>
+      </div>
+      <div class="bg-emerald-500 border-2 border-emerald-700 rounded-xl p-3 text-center rhyme-glow-green">
+        <p class="text-xs text-emerald-100 font-bold mb-1 tracking-wide">✨ 魔法屋擺放口訣</p>
+        <p class="text-2xl font-black text-white tracking-widest drop-shadow">「橫直橫直變變變！」</p>
+        <p class="text-xs text-emerald-100 mt-1 font-semibold">魔法屋輪流橫直擺放，交界點就是頂點！</p>
+      </div>
+    </div>
+  `;
+  document.getElementById('summary-btn-group').innerHTML=`
+    <button onclick="closeSummaryToSelection()"
+      class="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-4 rounded-2xl text-xl transition shadow-lg">
+      記住了！返回選單 🏆
+    </button>
+  `;
   document.getElementById('summary-modal').classList.remove('hidden');
   lucide.createIcons();
 }
@@ -961,12 +949,97 @@ function useChallengeHint(){
   chHintIndex=(chHintIndex+1)%CH_HINTS.length;
 }
 
-// ══════════════════════════════════════════════
-//  總結彈窗
-// ══════════════════════════════════════════════
+function showSquareLv1Summary(){
+  document.getElementById('summary-title').innerText='🏆 正方形第一關完成！';
+  const body=document.getElementById('summary-body');
+  body.className='p-0 mb-6';
+  body.innerHTML=`
+    <div class="bg-amber-50 border-2 border-amber-200 rounded-xl p-4 text-left space-y-3">
+      <p class="text-center font-black text-amber-800 text-lg">🏠 魔法屋的大小</p>
+      <p class="text-slate-700 text-sm leading-relaxed">正方形<strong>四條邊都相等</strong>，所以兩條鄰邊的格數完全一樣！</p>
+      <p class="text-slate-700 text-sm leading-relaxed">魔法屋的格數 ＝ 鄰邊的格數，因此兩個魔法屋的<strong>大小完全相同</strong>！</p>
+      <div class="flex items-center justify-center gap-3 py-1">
+        <div class="flex flex-col items-center">
+          <div class="w-14 h-8 border-4 border-amber-500 bg-amber-100 rounded-md"></div>
+          <span class="text-[10px] font-bold text-amber-700 mt-1">橫放</span>
+        </div>
+        <div class="text-2xl font-black text-amber-500">→</div>
+        <div class="flex flex-col items-center">
+          <div class="w-8 h-14 border-4 border-amber-500 bg-amber-100 rounded-md"></div>
+          <span class="text-[10px] font-bold text-amber-700 mt-1">直放</span>
+        </div>
+        <div class="text-2xl font-black text-amber-500">→</div>
+        <div class="flex flex-col items-center">
+          <div class="w-14 h-8 border-4 border-amber-500 bg-amber-100 rounded-md"></div>
+          <span class="text-[10px] font-bold text-amber-700 mt-1">橫放</span>
+        </div>
+      </div>
+      <div class="bg-amber-400 border-2 border-amber-600 rounded-xl p-4 text-center rhyme-glow">
+        <p class="text-xs text-amber-900 font-bold mb-1 tracking-wide">✨ 第一句正方形口訣</p>
+        <p class="text-3xl font-black text-white tracking-widest drop-shadow">「橫變直，直變橫」</p>
+        <p class="text-xs text-amber-900 mt-2 font-semibold">旋轉魔法屋後，橫的變直、直的變橫，格數不變！</p>
+      </div>
+    </div>
+  `;
+  document.getElementById('summary-btn-group').innerHTML=`
+    <button onclick="goToChallengeArea()"
+      class="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-4 rounded-2xl text-xl transition shadow-lg flex items-center justify-center gap-2">
+      <i data-lucide="swords" class="w-5 h-5"></i> 進入正方形闖關挑戰區！
+    </button>
+    <button onclick="closeSummaryToSelection()"
+      class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-2xl transition text-base">
+      返回主選單
+    </button>
+  `;
+  document.getElementById('summary-modal').classList.remove('hidden');
+  lucide.createIcons();
+}
+
+function showSquareLv2Summary(){
+  document.getElementById('summary-title').innerText='🏆 正方形第二關完成！';
+  const body=document.getElementById('summary-body');
+  body.className='p-0 mb-6';
+  body.innerHTML=`
+    <div class="bg-emerald-50 border-2 border-emerald-200 rounded-xl p-4 text-left space-y-3">
+      <p class="text-center font-black text-emerald-800 text-lg">🏠 魔法屋的擺放方法</p>
+      <p class="text-slate-700 text-sm leading-relaxed">只知道一條邊，也能找到所有頂點！鄰邊<strong>等長且互相垂直</strong>，旋轉魔法屋後輪流擺放。</p>
+      <p class="text-slate-700 text-sm leading-relaxed">每次旋轉後魔法屋<strong>交替橫直擺放</strong>，交界點就是下一個頂點的位置！</p>
+      <div class="flex items-center justify-center gap-2 py-1">
+        <div class="flex flex-col items-center"><div class="w-12 h-7 border-4 border-emerald-500 bg-emerald-100 rounded"></div><span class="text-[9px] font-bold text-emerald-700 mt-1">橫</span></div>
+        <span class="text-emerald-500 font-black">→</span>
+        <div class="flex flex-col items-center"><div class="w-7 h-12 border-4 border-emerald-500 bg-emerald-100 rounded"></div><span class="text-[9px] font-bold text-emerald-700 mt-1">直</span></div>
+        <span class="text-emerald-500 font-black">→</span>
+        <div class="flex flex-col items-center"><div class="w-12 h-7 border-4 border-emerald-500 bg-emerald-100 rounded"></div><span class="text-[9px] font-bold text-emerald-700 mt-1">橫</span></div>
+        <span class="text-emerald-500 font-black">→</span>
+        <div class="flex flex-col items-center"><div class="w-7 h-12 border-4 border-emerald-500 bg-emerald-100 rounded"></div><span class="text-[9px] font-bold text-emerald-700 mt-1">直</span></div>
+        <span class="text-[10px] font-black text-emerald-600">…</span>
+      </div>
+      <div class="bg-emerald-500 border-2 border-emerald-700 rounded-xl p-4 text-center rhyme-glow-green">
+        <p class="text-xs text-emerald-100 font-bold mb-1 tracking-wide">✨ 第二句正方形口訣</p>
+        <p class="text-3xl font-black text-white tracking-widest drop-shadow">「橫直橫直變變變！」</p>
+        <p class="text-xs text-emerald-100 mt-2 font-semibold">魔法屋輪流橫直擺放，交替擺放找到所有頂點！</p>
+      </div>
+    </div>
+  `;
+  document.getElementById('summary-btn-group').innerHTML=`
+    <button onclick="goToChallengeArea()"
+      class="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-4 rounded-2xl text-xl transition shadow-lg flex items-center justify-center gap-2">
+      <i data-lucide="swords" class="w-5 h-5"></i> 進入正方形闖關挑戰區！
+    </button>
+    <button onclick="closeSummaryToSelection()"
+      class="w-full bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-2xl transition text-base">
+      返回主選單
+    </button>
+  `;
+  document.getElementById('summary-modal').classList.remove('hidden');
+  lucide.createIcons();
+}
+
 function showSummary(title,msg){
   document.getElementById('summary-title').innerText=title||'🏆 恭喜完成！';
-  document.getElementById('summary-body').innerText=msg||'太棒了！';
+  const body=document.getElementById('summary-body');
+  body.className='text-lg text-amber-800 bg-amber-50 p-4 rounded-xl mb-6 border-2 border-amber-200 leading-relaxed';
+  body.innerText=msg||'太棒了！';
   document.getElementById('summary-btn-group').innerHTML=
     '<button onclick="closeSummaryToSelection()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-2xl text-xl transition">返回選單</button>';
   document.getElementById('summary-modal').classList.remove('hidden');
@@ -977,9 +1050,6 @@ function closeSummaryToSelection(){
   backToShapeSelection();
 }
 
-// ══════════════════════════════════════════════
-//  重置
-// ══════════════════════════════════════════════
 function resetCurrentStage(){
   completedEdges=[];clr('four-helper-boxes');
   if(appMode==='challenge'){
@@ -993,9 +1063,6 @@ function resetCurrentStage(){
   }
 }
 
-// ══════════════════════════════════════════════
-//  SVG 繪圖輔助
-// ══════════════════════════════════════════════
 function addEdgeFrame(pa,pb){
   if(!pa||!pb)return;
   const dx=Math.abs(pb.x-pa.x),dy=Math.abs(pb.y-pa.y);
@@ -1083,9 +1150,6 @@ function drawAnimLine(group,pA,pB){
   requestAnimationFrame(step);
 }
 
-// ══════════════════════════════════════════════
-//  步驟指示器
-// ══════════════════════════════════════════════
 function updatePhase(phase,title){
   const ind=document.getElementById('phase-indicator');if(!ind)return;
   ind.classList.remove('hidden');
@@ -1114,9 +1178,6 @@ function updateRect2Phase(step){
 }
 function setPhaseS2Visible(v){const r=document.getElementById('phase-s2-row');if(r)r.style.display=v?'':'none';}
 
-// ══════════════════════════════════════════════
-//  教學模式 loadStage
-// ══════════════════════════════════════════════
 function loadStage(){
   if(appMode!=='learning')return;
   drawStarted=false;rotLocked=false;sessionId++;
@@ -1126,17 +1187,13 @@ function loadStage(){
    'challenge-lines','error-temp-lines'].forEach(id=>clr(id));
   const poly=document.getElementById('completed-polygon');
   if(poly){poly.setAttribute('points','');poly.setAttribute('fill','none');}
-
   const isRect2=(selShape==='rectangle_lv2');
   document.getElementById('rect2-phase-indicator').classList.toggle('hidden',!isRect2);
   document.getElementById('phase-indicator').classList.toggle('hidden',isRect2);
-
   const stLabel={square_lv1:'正方形',square_lv2:'正方形',rectangle_lv1:'長方形',rectangle_lv2:'長方形(第二關)'};
   document.getElementById('stage-title').innerText=(stLabel[selShape]||'圖形')+' 第'+curDiff+'題 / 共3題';
   const btnQ=document.getElementById('btn-next-q');if(btnQ)btnQ.classList.add('hidden');
-
   if(isRect2){loadRect2();return;}
-
   const cfg=STAGES[selShape]?.[curDiff];
   if(!cfg){showFB('題目錯誤');return;}
   if(!activePts||lastDiff!==curDiff||lastShape!==selShape){
@@ -1144,7 +1201,6 @@ function loadStage(){
     lastDiff=curDiff;lastShape=selShape;lv2Sub=1;
   }
   fixedLines=[];
-
   if(selShape==='square_lv1'){
     fixedLines=[{p1:{...activePts.p1},p2:{...activePts.p2}},{p1:{...activePts.p1},p2:{...activePts.p3}}];
     fixedLines.forEach(l=>addEdgeFrame({...l.p1},{...l.p2}));
@@ -1241,9 +1297,6 @@ function onOrangeClick(idx){
   document.getElementById('stage-instruction').innerText='拖曳把手旋轉鄰邊，對齊格線！';
 }
 
-// ══════════════════════════════════════════════
-//  旋轉把手
-// ══════════════════════════════════════════════
 function makeRotHandle(parentGroup,handlePt,pivotPt,onRotateCallback,onLockCallback){
   const HITS=60;
   const hit=document.createElementNS('http://www.w3.org/2000/svg','rect');
@@ -1399,6 +1452,9 @@ function findRefEdge(handle,pivot){
   return null;
 }
 
+// ══════════════════════════════════════════════
+// ★ 修改一：enterStretch — 移除答案位置綠點
+// ══════════════════════════════════════════════
 function enterStretch(pivot,target,refEdge,onComplete){
   rotLocked=true;clr('interactive-group');
   const ig=document.getElementById('interactive-group');
@@ -1407,7 +1463,7 @@ function enterStretch(pivot,target,refEdge,onComplete){
   const refBB=refEdge?getBB(refEdge.p1,refEdge.p2):null;
   const gl=mkLine(pivot.x-ux*15,pivot.y-uy*15,pivot.x+ux*380,pivot.y+uy*380,'#10b981','1.5');
   gl.setAttribute('stroke-dasharray','7,5');gl.setAttribute('opacity','0.35');ig.appendChild(gl);
-  ig.appendChild(mkDot(target.x,target.y,'rgba(16,185,129,0.18)',10,'#10b981'));
+  // ✅ 已移除：ig.appendChild(mkDot(target.x,target.y,...)) 答案位置綠點
   const al=mkLine(pivot.x,pivot.y,pivot.x+ux*sd,pivot.y+uy*sd,'#10b981','4');al.setAttribute('id','stretch-line');ig.appendChild(al);
   const hv=document.createElementNS('http://www.w3.org/2000/svg','circle');
   hv.setAttribute('cx',pivot.x+ux*sd);hv.setAttribute('cy',pivot.y+uy*sd);hv.setAttribute('r','8');
@@ -1465,35 +1521,31 @@ function completeShape(){
   },1300);
 }
 
-// ══════════════════════════════════════════════
-//  教學模式下一題
-//  Q1完成 → 密碼(2026) → Q2
-//  Q2完成 → 直接 → Q3（不需密碼）
-//  Q3完成 → 密碼(2026) → 總結
-// ══════════════════════════════════════════════
 function handleNext(){
   const btnQ=document.getElementById('btn-next-q');if(btnQ)btnQ.classList.add('hidden');
-  const names={square_lv1:'正方形第一關',square_lv2:'正方形第二關',rectangle_lv1:'長方形第一關',rectangle_lv2:'長方形第二關'};
   if(curDiff===1){
     showPasswordModal('✅ 第 1 題完成！請輸入密碼繼續第 2 題',()=>{
       curDiff++;activePts=null;lv2Sub=1;loadStage();
     },'2026');
   }else if(curDiff===2){
-    // ★ 第2題完成 → 直接進入第3題，不需密碼
     curDiff++;activePts=null;lv2Sub=1;loadStage();
   }else{
-    showPasswordModal('🎉 全部 3 題完成！請輸入密碼確認成績',()=>{
-      showSummary(
-        '🏆 '+(names[selShape]||'幾何圖形')+'全部完成！',
-        '你已完全掌握鄰邊的概念，能用魔法屋準確畫出圖形！太棒了！'
-      );
+    showPasswordModal('🎉 全部 3 題完成！請輸入密碼查看總結',()=>{
+      if(selShape==='square_lv1'){
+        showSquareLv1Summary();
+      }else if(selShape==='square_lv2'){
+        showSquareLv2Summary();
+      }else{
+        const names={rectangle_lv1:'長方形第一關',rectangle_lv2:'長方形第二關'};
+        showSummary(
+          '🏆 '+(names[selShape]||'幾何圖形')+'全部完成！',
+          '你已完全掌握鄰邊的概念，能用魔法屋準確畫出圖形！太棒了！'
+        );
+      }
     },'2026');
   }
 }
 
-// ══════════════════════════════════════════════
-//  長方形第二關
-// ══════════════════════════════════════════════
 function loadRect2(){
   const cfg=STAGES.rectangle_lv2[curDiff];if(!cfg)return;
   const{p1,p2}=cfg;
@@ -1665,6 +1717,9 @@ function onR2Phase2Done(){
   safeCall(()=>setupR2ThirdStretch(p2,rect2.perpDir,p4),900);
 }
 
+// ══════════════════════════════════════════════
+// ★ 修改二：setupR2ThirdStretch — 移除格點綠色圓點
+// ══════════════════════════════════════════════
 function setupR2ThirdStretch(pivot,pd,target){
   clr('interactive-group');
   const ig=document.getElementById('interactive-group');
@@ -1677,9 +1732,11 @@ function setupR2ThirdStretch(pivot,pd,target){
   const gl=mkLine(pivot.x-pd.x*20,pivot.y-pd.y*20,pivot.x+pd.x*380,pivot.y+pd.y*380,'#10b981','1.5');
   gl.setAttribute('stroke-dasharray','7,5');gl.setAttribute('opacity','0.4');ig.appendChild(gl);
   snapPts.forEach(({pt,k})=>{
-    const sm=mkDot(pt.x,pt.y,'rgba(16,185,129,0.15)',6,'#10b981');sm.setAttribute('stroke-dasharray','3,2');ig.appendChild(sm);
+    // ✅ 已移除：const sm=mkDot(...) 每格點綠色圓點
+    // ✅ 保留數字標籤，學生自行數格找正確位置
     const nlbl=document.createElementNS('http://www.w3.org/2000/svg','text');
-    nlbl.setAttribute('x',pt.x);nlbl.setAttribute('y',pt.y);nlbl.setAttribute('text-anchor','middle');nlbl.setAttribute('dominant-baseline','middle');
+    nlbl.setAttribute('x',pt.x);nlbl.setAttribute('y',pt.y);
+    nlbl.setAttribute('text-anchor','middle');nlbl.setAttribute('dominant-baseline','middle');
     nlbl.setAttribute('fill','#065f46');nlbl.setAttribute('font-size','9');nlbl.setAttribute('font-weight','bold');
     nlbl.style.pointerEvents='none';nlbl.textContent=String(k);ig.appendChild(nlbl);
   });
