@@ -30,6 +30,11 @@
     .rhyme-glow-green{animation:rhyme-glow-green 1.6s ease-in-out infinite;}
     @keyframes rhyme-glow-rose{0%,100%{box-shadow:0 0 0 0 rgba(225,29,72,0);}50%{box-shadow:0 0 18px 6px rgba(225,29,72,0.45);}}
     .rhyme-glow-rose{animation:rhyme-glow-rose 1.6s ease-in-out infinite;}
+    /* ★ 教學完成彈窗動畫 */
+    @keyframes lcBounceIn{0%{transform:scale(0.7);opacity:0;}70%{transform:scale(1.08);opacity:1;}100%{transform:scale(1);}}
+    .lc-bounce-in{animation:lcBounceIn 0.42s ease-out both;}
+    @keyframes starSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+    .star-spin{animation:starSpin 3s linear infinite;display:inline-block;}
   </style>
 </head>
 <body class="bg-amber-50 min-h-screen font-sans text-slate-800">
@@ -239,6 +244,7 @@
           </div>
 
           <div class="flex flex-col gap-2">
+            <!-- btn-next-q 保留但已不在 completeShape 中顯示，由彈窗取代 -->
             <button id="btn-next-q" onclick="handleNext()" class="hidden w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-2xl text-lg shadow transition">下一題 →</button>
             <button onclick="resetCurrentStage()" class="w-full bg-white hover:bg-emerald-50 text-emerald-600 border-4 border-emerald-300 font-bold py-2.5 rounded-2xl transition text-sm">重新本題</button>
             <button onclick="backToShapeSelection()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-2xl transition text-sm">返回選單</button>
@@ -329,6 +335,57 @@
     <h3 id="summary-title" class="text-3xl font-bold text-amber-900 mb-4">恭喜完成！</h3>
     <div id="summary-body" class="text-lg text-amber-800 bg-amber-50 p-4 rounded-xl mb-6 border-2 border-amber-200 leading-relaxed"></div>
     <div id="summary-btn-group" class="flex flex-col gap-3"></div>
+  </div>
+</div>
+
+<!-- ★ 教學模式關卡完成彈窗 -->
+<div id="learning-complete-modal"
+     class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-7 flex flex-col items-center gap-4 lc-bounce-in">
+
+    <!-- 旋轉星星 -->
+    <div class="text-5xl leading-none"><span class="star-spin">⭐</span></div>
+
+    <!-- 標題 -->
+    <h2 id="lc-stage-label"
+        class="text-2xl font-black text-emerald-700 tracking-wide text-center">
+      第 1 題 完成！
+    </h2>
+
+    <!-- 關卡資訊標籤 -->
+    <p id="lc-shape-info"
+       class="text-sm text-slate-500 bg-slate-100 px-4 py-1.5 rounded-full font-semibold">
+      正方形 第一關　第 1 / 3 題
+    </p>
+
+    <!-- 鼓勵語 -->
+    <p class="text-center text-slate-600 text-sm leading-relaxed px-2">
+      🎊 太棒了！你成功完成這一題！<br>
+      可以繼續下一題，或返回選單換一個關卡！
+    </p>
+
+    <!-- 按鈕組 -->
+    <div class="w-full flex flex-col gap-3 mt-1">
+
+      <!-- 繼續下一題 / 查看總結（動態切換） -->
+      <button id="lc-next-btn"
+              class="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black
+                     py-4 rounded-2xl text-lg transition shadow-lg flex items-center
+                     justify-center gap-2">
+        <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        繼續下一題！
+      </button>
+
+      <!-- 返回教學首頁 -->
+      <button id="lc-back-btn"
+              class="w-full bg-indigo-100 hover:bg-indigo-200 text-indigo-800 font-bold
+                     py-3 rounded-2xl text-base transition flex items-center
+                     justify-center gap-2">
+        <i data-lucide="home" class="w-4 h-4"></i>
+        返回教學選單
+      </button>
+
+    </div>
   </div>
 </div>
 
@@ -1452,9 +1509,6 @@ function findRefEdge(handle,pivot){
   return null;
 }
 
-// ══════════════════════════════════════════════
-// ★ 修改一：enterStretch — 移除答案位置綠點
-// ══════════════════════════════════════════════
 function enterStretch(pivot,target,refEdge,onComplete){
   rotLocked=true;clr('interactive-group');
   const ig=document.getElementById('interactive-group');
@@ -1463,7 +1517,6 @@ function enterStretch(pivot,target,refEdge,onComplete){
   const refBB=refEdge?getBB(refEdge.p1,refEdge.p2):null;
   const gl=mkLine(pivot.x-ux*15,pivot.y-uy*15,pivot.x+ux*380,pivot.y+uy*380,'#10b981','1.5');
   gl.setAttribute('stroke-dasharray','7,5');gl.setAttribute('opacity','0.35');ig.appendChild(gl);
-  // ✅ 已移除：ig.appendChild(mkDot(target.x,target.y,...)) 答案位置綠點
   const al=mkLine(pivot.x,pivot.y,pivot.x+ux*sd,pivot.y+uy*sd,'#10b981','4');al.setAttribute('id','stretch-line');ig.appendChild(al);
   const hv=document.createElementNS('http://www.w3.org/2000/svg','circle');
   hv.setAttribute('cx',pivot.x+ux*sd);hv.setAttribute('cy',pivot.y+uy*sd);hv.setAttribute('r','8');
@@ -1497,6 +1550,7 @@ function enterStretch(pivot,target,refEdge,onComplete){
   hh.addEventListener('pointercancel',e=>{active=false;hh.style.cursor='grab';try{hh.releasePointerCapture(e.pointerId);}catch(err){}});
 }
 
+// ★ 修改：completeShape → 完成後呼叫教學完成彈窗，不再顯示 btn-next-q
 function completeShape(){
   const pts=activePts;if(!pts)return;
   const p4=pts.p4||{x:pts.p2.x+pts.p3.x-pts.p1.x,y:pts.p2.y+pts.p3.y-pts.p1.y};
@@ -1516,34 +1570,120 @@ function completeShape(){
     }
     if(oe.length>=2)addEdgeFrame({...oe[0].point},{...oe[1].point});
     showFB('🎉 四條邊全部完成！鄰邊等長，圖形正確！');
-    const btnQ=document.getElementById('btn-next-q');if(btnQ)btnQ.classList.remove('hidden');
     lucide.createIcons();
+    // ★ 核心改動：延遲後彈出教學完成彈窗
+    safeCall(showLearningCompleteModal, 800);
   },1300);
 }
 
+// ★ 新增：教學模式關卡完成彈窗
+function showLearningCompleteModal(){
+  const modal=document.getElementById('learning-complete-modal');
+  if(!modal)return;
+
+  const shapeNames={
+    square_lv1:'正方形 第一關',
+    square_lv2:'正方形 第二關',
+    rectangle_lv1:'長方形 第一關',
+    rectangle_lv2:'長方形 第二關'
+  };
+
+  // 更新標題與關卡資訊
+  document.getElementById('lc-stage-label').innerText='第 '+curDiff+' 題 完成！';
+  document.getElementById('lc-shape-info').innerText=
+    (shapeNames[selShape]||selShape)+'　第 '+curDiff+' / 3 題';
+
+  const nextBtn=document.getElementById('lc-next-btn');
+  const backBtn=document.getElementById('lc-back-btn');
+
+  if(curDiff<3){
+    // 還有下一題
+    nextBtn.classList.remove('hidden');
+    nextBtn.className='w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black py-4 rounded-2xl text-lg transition shadow-lg flex items-center justify-center gap-2';
+    nextBtn.innerHTML='<i data-lucide="arrow-right" class="w-5 h-5"></i> 繼續第 '+(curDiff+1)+' 題！';
+    nextBtn.onclick=()=>{
+      modal.classList.add('hidden');
+      if(curDiff===1){
+        // 第1→2題需要密碼
+        showPasswordModal('✅ 第 1 題完成！請輸入密碼繼續第 2 題',()=>{
+          curDiff++;activePts=null;lv2Sub=1;loadStage();
+        },'2026');
+      }else{
+        // 第2→3題不需要密碼
+        curDiff++;activePts=null;lv2Sub=1;loadStage();
+      }
+    };
+  }else{
+    // 第3題完成 → 查看總結
+    nextBtn.classList.remove('hidden');
+    nextBtn.className='w-full bg-amber-500 hover:bg-amber-600 text-white font-black py-4 rounded-2xl text-lg transition shadow-lg flex items-center justify-center gap-2';
+    nextBtn.innerHTML='<i data-lucide="award" class="w-5 h-5"></i> 查看完關總結 🏆';
+    nextBtn.onclick=()=>{
+      modal.classList.add('hidden');
+      showPasswordModal('🎉 全部 3 題完成！請輸入密碼查看總結',()=>{
+        if(selShape==='square_lv1') showSquareLv1Summary();
+        else if(selShape==='square_lv2') showSquareLv2Summary();
+        else{
+          const names={rectangle_lv1:'長方形第一關',rectangle_lv2:'長方形第二關'};
+          showSummary('🏆 '+(names[selShape]||'幾何圖形')+'全部完成！',
+            '你已完全掌握鄰邊的概念，能用魔法屋準確畫出圖形！太棒了！');
+        }
+      },'2026');
+    };
+  }
+
+  // 返回教學選單按鈕
+  backBtn.onclick=()=>{
+    modal.classList.add('hidden');
+    returnToLearningHome();
+  };
+
+  // 重置彈窗動畫（重新播放）
+  const card=modal.querySelector('div');
+  if(card){card.classList.remove('lc-bounce-in');void card.offsetWidth;card.classList.add('lc-bounce-in');}
+
+  modal.classList.remove('hidden');
+  lucide.createIcons();
+}
+
+// ★ 新增：返回教學模式首頁
+function returnToLearningHome(){
+  // 重置所有教學狀態
+  curDiff=1;
+  activePts=null;
+  lv2Sub=1;
+  drawStarted=false;
+  rotLocked=false;
+  rect2={};
+  completedEdges=[];
+  sessionId++; // 中止所有 safeCall
+
+  // 清空畫布
+  ['four-helper-boxes','fixed-lines','interactive-group','control-points',
+   'helper-rects','persistent-helper-rects','selected-points-container',
+   'challenge-lines','error-temp-lines','custom-boxes-group'].forEach(id=>clr(id));
+  const poly=document.getElementById('completed-polygon');
+  if(poly){poly.setAttribute('points','');poly.setAttribute('fill','none');}
+  clearBBox();
+
+  // 隱藏遊戲畫面，顯示關卡選擇
+  document.getElementById('game-screen').classList.add('hidden');
+  document.getElementById('shape-selection-screen').classList.remove('hidden');
+  document.getElementById('learning-shape-section').classList.remove('hidden');
+  document.getElementById('challenge-section').classList.add('hidden');
+  document.getElementById('score-display-board').classList.add('hidden');
+  document.getElementById('task-status-bar').classList.add('hidden');
+
+  // 重置 mode badge
+  document.getElementById('mode-badge').innerText='🎓 教學模式';
+
+  lucide.createIcons();
+}
+
+// handleNext 保留供「下一題」按鈕備用（不在主流程中）
 function handleNext(){
   const btnQ=document.getElementById('btn-next-q');if(btnQ)btnQ.classList.add('hidden');
-  if(curDiff===1){
-    showPasswordModal('✅ 第 1 題完成！請輸入密碼繼續第 2 題',()=>{
-      curDiff++;activePts=null;lv2Sub=1;loadStage();
-    },'2026');
-  }else if(curDiff===2){
-    curDiff++;activePts=null;lv2Sub=1;loadStage();
-  }else{
-    showPasswordModal('🎉 全部 3 題完成！請輸入密碼查看總結',()=>{
-      if(selShape==='square_lv1'){
-        showSquareLv1Summary();
-      }else if(selShape==='square_lv2'){
-        showSquareLv2Summary();
-      }else{
-        const names={rectangle_lv1:'長方形第一關',rectangle_lv2:'長方形第二關'};
-        showSummary(
-          '🏆 '+(names[selShape]||'幾何圖形')+'全部完成！',
-          '你已完全掌握鄰邊的概念，能用魔法屋準確畫出圖形！太棒了！'
-        );
-      }
-    },'2026');
-  }
+  showLearningCompleteModal();
 }
 
 function loadRect2(){
@@ -1717,9 +1857,6 @@ function onR2Phase2Done(){
   safeCall(()=>setupR2ThirdStretch(p2,rect2.perpDir,p4),900);
 }
 
-// ══════════════════════════════════════════════
-// ★ 修改二：setupR2ThirdStretch — 移除格點綠色圓點
-// ══════════════════════════════════════════════
 function setupR2ThirdStretch(pivot,pd,target){
   clr('interactive-group');
   const ig=document.getElementById('interactive-group');
@@ -1732,8 +1869,6 @@ function setupR2ThirdStretch(pivot,pd,target){
   const gl=mkLine(pivot.x-pd.x*20,pivot.y-pd.y*20,pivot.x+pd.x*380,pivot.y+pd.y*380,'#10b981','1.5');
   gl.setAttribute('stroke-dasharray','7,5');gl.setAttribute('opacity','0.4');ig.appendChild(gl);
   snapPts.forEach(({pt,k})=>{
-    // ✅ 已移除：const sm=mkDot(...) 每格點綠色圓點
-    // ✅ 保留數字標籤，學生自行數格找正確位置
     const nlbl=document.createElementNS('http://www.w3.org/2000/svg','text');
     nlbl.setAttribute('x',pt.x);nlbl.setAttribute('y',pt.y);
     nlbl.setAttribute('text-anchor','middle');nlbl.setAttribute('dominant-baseline','middle');
